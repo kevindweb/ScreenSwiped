@@ -1,0 +1,10 @@
+Screen Swiped
+Infinite sideways platform runner
+- Ability to draw platforms with mouse 
+- Gravity acts on player
+  - if we hit bottom, restart game
+- Destroyer on left
+  - if platform hits side of camera, destroy it to stop rendering
+- Single horizontal platform predrawn to begin game
+- Player has very low friction (allows for sliding down ramps)
+- Player is slightly bouncy
