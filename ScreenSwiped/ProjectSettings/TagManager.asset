@@ -6,6 +6,7 @@ TagManager:
   tags:
   - InitialPlatform
   - RadiusCollider
+  - PlatformParent
   layers:
   - Default
   - TransparentFX

@@ -8,8 +8,15 @@ public class Destroy : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other){
 		GameObject collider = other.gameObject;
 		if(collider.tag == "Player"){
+			// Debug.Log("player killed!");
 			SceneManager.LoadScene("GameOver");
 			// load game over scene
+			return;
+		} else if(collider.tag == "PlatformParent"){
+			// these platforms have parents
+			GameObject parent = collider.transform.parent.gameObject;
+			Destroy(parent);
+			// remove parent and all platform children
 			return;
 		}
 		Destroy(collider);

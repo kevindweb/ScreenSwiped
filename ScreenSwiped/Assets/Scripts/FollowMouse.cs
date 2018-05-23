@@ -33,10 +33,10 @@ public class FollowMouse : MonoBehaviour {
 			rotation = 0.0f;
 			transform.localRotation = Quaternion.Euler(0.0f, 0.0f, rotation);
 		} else if(Input.GetKeyDown(KeyCode.A)){
-			rotation = -45.0f;
+			rotation = -30.0f;
 			transform.localRotation = Quaternion.Euler(0.0f, 0.0f, rotation);
 		} else if(Input.GetKeyDown(KeyCode.D)){
-			rotation = 45.0f;
+			rotation = 30.0f;
 			transform.localRotation = Quaternion.Euler(0.0f, 0.0f, rotation);
 		}
 		// use awd keys rotate platform
