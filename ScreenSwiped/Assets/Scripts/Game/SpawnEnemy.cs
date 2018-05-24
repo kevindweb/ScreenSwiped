@@ -7,7 +7,7 @@ public class SpawnEnemy : MonoBehaviour {
 	public GameObject floor;
 	public GameObject ceiling;
 	public float spawnMin = 1f;
-	public float spawnMax = 3f;
+	public float spawnMax = 2f;
 	void Start(){
 		Spawn();
 	}
@@ -24,6 +24,6 @@ public class SpawnEnemy : MonoBehaviour {
 		float y = transform.position.y + Random.Range(topOfFloor + enemyHeight, bottomOfCeiling - enemyHeight);
 		GameObject curr = Instantiate(enemy, new Vector3(transform.position.x, y, transform.position.z), Quaternion.identity);
 		curr.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 45.0f);
-		// Invoke("Spawn", Random.Range(spawnMin, spawnMax));
+		Invoke("Spawn", Random.Range(spawnMin, spawnMax));
 	}
 }
