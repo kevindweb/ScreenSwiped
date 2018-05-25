@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class ChooseDifficulty : MonoBehaviour {
 	public Button[] buttons;
+	public Button backButton;
 	// public Button current;
 	// current used for showing player which button is focused
 	public int currentIndex = 1;
@@ -44,6 +45,9 @@ public class ChooseDifficulty : MonoBehaviour {
 		} else if(Input.GetKeyDown(KeyCode.Return)){
 			// click this button
 			buttons[currentIndex].onClick.Invoke();
+		} else if(Input.GetKeyDown(KeyCode.Escape)){
+			// press back button
+			backButton.onClick.Invoke();
 		}
 		if(currentIndex != test){
 			// arrow was pressed
