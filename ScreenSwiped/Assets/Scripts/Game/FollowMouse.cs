@@ -29,7 +29,7 @@ public class FollowMouse : MonoBehaviour {
 		Vector3 mouseLocation = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		mouseLocation.z = 0;
 		transform.position = mouseLocation;
-		if(Input.GetKeyDown(KeyCode.W)){
+		if(Input.GetKeyDown(KeyCode.S)){
 			rotation = 0.0f;
 			transform.localRotation = Quaternion.Euler(0.0f, 0.0f, rotation);
 		} else if(Input.GetKeyDown(KeyCode.A)){

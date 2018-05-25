@@ -12,13 +12,9 @@ public class Destroy : MonoBehaviour {
 			SceneManager.LoadScene("GameOver");
 			// load game over scene
 			return;
-		} else if(collider.tag == "PlatformParent"){
-			// these platforms have parents
-			GameObject parent = collider.transform.parent.gameObject;
-			Destroy(parent);
-			// remove parent and all platform children
+		} else if(collider.tag == "HeldPlatform")
+			// do not delete platform that is not set
 			return;
-		}
 		Destroy(collider);
 	}
 }

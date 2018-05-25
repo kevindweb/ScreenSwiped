@@ -681,6 +681,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horizontalGravity: 4.9
+  jump: {x: 0, y: 0}
+  jumpForce: 2
 --- !u!50 &1492611503
 Rigidbody2D:
   serializedVersion: 4

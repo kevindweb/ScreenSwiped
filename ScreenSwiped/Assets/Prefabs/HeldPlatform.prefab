@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114252027071801658}
   m_Layer: 0
   m_Name: HeldPlatform
-  m_TagString: Untagged
+  m_TagString: HeldPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,7 +78,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e55a0a121dfa48d4af5a40002139c00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  newCol: {r: 1, g: 0, b: 0, a: 1}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
+  currColor: {r: 0, g: 0, b: 0, a: 0}
+  rotation: 0
 --- !u!212 &212173403842934750
 SpriteRenderer:
   m_ObjectHideFlags: 1

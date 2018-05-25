@@ -6,22 +6,34 @@ using UnityEngine.SceneManagement;
 public class Controller : MonoBehaviour {
 	public float horizontalGravity = 4.9f;
 	private Rigidbody2D rg2d;
-
+	private string difficulty;
+	private DataLoader access;
+	private string file = "difficulty.dat";
+	private Dictionary<string, float> difficulties = new Dictionary<string, float>();
 	void Awake(){
+		difficulties.Add("easy", 0.3f);
+		difficulties.Add("normal", 0.5f);
+		difficulties.Add("hard", 0.75f);
 		rg2d = GetComponent<Rigidbody2D>();
+		access = ScriptableObject.CreateInstance("DataLoader") as DataLoader;
+		difficulty = access.Load("", file);
+		if(difficulty == null){
+			difficulty = "normal";
+		}
+		float timeSetting = difficulties[difficulty];
+		// set time setting according to difficulty setting
+		Time.timeScale = timeSetting;
 	}
 
 	void Update(){
 		if(Input.GetKeyDown(KeyCode.R)){
 			// check for restart
-			Debug.Log("restart!");
 			SceneManager.LoadScene("GameOver");
 			// load game over scene
 		}
 	}
 
 	void FixedUpdate(){
-		// transform.Translate(new Vector3(sideSpeed * Time.deltaTime, 0, 0));
 		rg2d.AddForce(new Vector2(horizontalGravity, 0));
 		// make horizontal gravity
 	}
