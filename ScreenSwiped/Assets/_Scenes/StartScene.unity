@@ -1174,9 +1174,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a17d2b9e25d4946baa70ee878d647ec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platform: {fileID: 1790392302293730, guid: 7f3a578e7e8c84bde98793d436c156cc, type: 2}
-  heldVersion: {fileID: 1790392302293730, guid: 660a5137cfd9a435195668fd8cf33229,
-    type: 2}
+  platforms:
+  - {fileID: 1790392302293730, guid: 7f3a578e7e8c84bde98793d436c156cc, type: 2}
+  - {fileID: 1790392302293730, guid: 7f3a578e7e8c84bde98793d436c156cc, type: 2}
+  - {fileID: 1790392302293730, guid: 7f3a578e7e8c84bde98793d436c156cc, type: 2}
+  heldVersions:
+  - {fileID: 1790392302293730, guid: 660a5137cfd9a435195668fd8cf33229, type: 2}
+  - {fileID: 1790392302293730, guid: 660a5137cfd9a435195668fd8cf33229, type: 2}
+  - {fileID: 1790392302293730, guid: 660a5137cfd9a435195668fd8cf33229, type: 2}
 --- !u!114 &2129201244
 MonoBehaviour:
   m_ObjectHideFlags: 0
