@@ -14,18 +14,19 @@ public class CreatePlatform : MonoBehaviour {
 	private HUD hudScript;
 	private int currPlatformNum;
 	private Dictionary<KeyCode, int> keys = new Dictionary<KeyCode, int>();
+	private bool colorSet = false;
 	void Start(){
 		hudScript = Camera.main.GetComponent<HUD>();
 		keys.Add(KeyCode.Alpha1, 1);
-		keys.Add(KeyCode.Alpha2, 2);
-		keys.Add(KeyCode.Alpha3, 3);
+		// keys.Add(KeyCode.Alpha2, 2);
+		// keys.Add(KeyCode.Alpha3, 3);
 	}
 	void Update(){
 		Vector3 mouseLocation = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		mouseLocation.z = 0;
 		bool buttonClicked = false;
 		foreach(KeyValuePair<KeyCode, int> key in keys){
-    		if(Input.GetKeyDown(key.Key)){
+    		if(Input.GetKeyDown(key.Key) && !colorSet){
 				buttonClicked = true;
 				// initialize platform at mouse location
 				if(heldObj){
@@ -35,6 +36,7 @@ public class CreatePlatform : MonoBehaviour {
 				holding = true;
 				heldObj = Instantiate(heldVersions[currPlatformNum - 1], mouseLocation, Quaternion.identity);
 				hudScript.ChangeColor(currPlatformNum, true);
+				colorSet = true;
 				break;
 			}
 		}
@@ -44,6 +46,7 @@ public class CreatePlatform : MonoBehaviour {
 			heldObj = null;
 			holding = false;
 			hudScript.ChangeColor(currPlatformNum, false);
+			colorSet = false;
 		} else if(Input.GetKeyDown(KeyCode.Space) && holding && !buttonClicked){
 			// if holding, object follows mouse until we instantiate it with spacebar
 			FollowMouse script = heldObj.GetComponent<FollowMouse>();
@@ -61,6 +64,7 @@ public class CreatePlatform : MonoBehaviour {
 			newScript.RotateTo(rotation);
 			holding = false;
 			hudScript.ChangeColor(currPlatformNum, false);
+			colorSet = false;
 		}
 
 	}

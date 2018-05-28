@@ -6,8 +6,8 @@ public class SpawnEnemy : MonoBehaviour {
 	public GameObject[] enemies;
 	public GameObject floor;
 	public GameObject ceiling;
-	public float spawnMin = 1f;
-	public float spawnMax = 2f;
+	public float spawnMin = 0.5f;
+	public float spawnMax = 1.0f;
 	void Start(){
 		Spawn();
 	}

@@ -36,12 +36,12 @@ public class HUD : MonoBehaviour {
 		defaultItemBackground = rendItem.material.color;
 		// set item list on left side of screen
 		CreateItem(Color.black, number.ToString(), yPos, itemParent.transform.position.x);
-		yPos -= itemHolder.transform.localScale.y + 0.3f;
-		number++;
-		CreateItem(Color.green, number.ToString(), yPos, itemParent.transform.position.x);
-		yPos -= itemHolder.transform.localScale.y + 0.3f;
-		number++;
-		CreateItem(Color.blue, number.ToString(), yPos, itemParent.transform.position.x);
+		// yPos -= itemHolder.transform.localScale.y + 0.3f;
+		// number++;
+		// CreateItem(Color.green, number.ToString(), yPos, itemParent.transform.position.x);
+		// yPos -= itemHolder.transform.localScale.y + 0.3f;
+		// number++;
+		// CreateItem(Color.blue, number.ToString(), yPos, itemParent.transform.position.x);
 	}
 	void Update(){
 		float currPos = transform.position.x;
@@ -92,7 +92,7 @@ public class HUD : MonoBehaviour {
 		GameObject platform = platforms[platformNum - 1];
 		Renderer rendItem = platform.GetComponent<Renderer>();
 		if(selected){
-			rendItem.material.SetColor("_Color", Color.blue);
+			rendItem.material.SetColor("_Color", Color.red);
 		} else{
 			rendItem.material.SetColor("_Color", defaultItemBackground);
 		}

@@ -35,7 +35,7 @@ public class Restart : MonoBehaviour {
 		int w = 100;
 		// Debug.Log("highScore: " + highScore);
 		float height = (Screen.height-h) * .25f;
-		float width = (Screen.width-w) * .5f;
+		float width = (Screen.width - w) * .5f;
 		GUI.Label(new Rect(width, height, w, h), "GAME OVER");
 		if(isHighScore)
 			GUI.Label(new Rect(width, height + h, w, h), "HIGH SCORE");
