@@ -97,4 +97,23 @@ public class HUD : MonoBehaviour {
 			rendItem.material.SetColor("_Color", defaultItemBackground);
 		}
 	}
+	public void CoolDown(int platformNum, float cooldown, float startTime){
+		// when we select certain platforms, we need to cooldown before using them again
+		GameObject platform = platforms[platformNum - 1];
+		float t = (Time.time - startTime) * cooldown;
+		platform.GetComponent<Renderer>().material.color = Color.Lerp(Color.red, defaultItemBackground, t);
+		float timeStamp = startTime + cooldown;
+		StartCoroutine(CoolDown(Time.deltaTime, platform, cooldown, startTime, timeStamp));
+		// run at same delay as Update function
+	}
+
+	IEnumerator CoolDown(float delayTime, GameObject platform, float cooldown, float startTime, float timeStamp){
+	 	yield return new WaitForSeconds(delayTime);
+		float t = (Time.time - startTime) * cooldown;
+		platform.GetComponent<Renderer>().material.color = Color.Lerp(Color.red, defaultItemBackground, t);
+		if(timeStamp > Time.time){
+			// continue transitioning color
+			StartCoroutine(CoolDown(Time.deltaTime, platform, cooldown, startTime, timeStamp));
+		}
+	}
 }

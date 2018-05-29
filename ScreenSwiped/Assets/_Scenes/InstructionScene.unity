@@ -180,8 +180,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Goal of Game: Zoom infinitely right and create platforms to avoid falling
-    to the ground!'
+  m_Text: 'Goal of Game: Zoom infinitely, creating platforms to avoid falling and
+    hitting enemies!'
 --- !u!222 &46680291
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -255,9 +255,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Keys: \n\tNumbers: (Ex: 1) Hold platform\n\tSpacebar: Place held platform
-    at mouse point\n\tEscape: Release held platform\n\tAWD: rotate platform right,
-    stright, and left respectively"
+  m_Text: "Keys: \n\tNumbers: (Ex: 1) Hold platform\n\tRotate: A (left) S (straight)
+    D (right)\n\tSpacebar: Place held platform at mouse point\n\tEscape: Release held
+    platform"
 --- !u!222 &95223651
 CanvasRenderer:
   m_ObjectHideFlags: 0

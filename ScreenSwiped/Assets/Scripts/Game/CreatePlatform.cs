@@ -5,6 +5,8 @@ using UnityEngine;
 public class CreatePlatform : MonoBehaviour {
 	public GameObject[] platforms;
 	// static platform after being placed at certain position
+	public float[] cooldowns;
+	// cooldowns of platform types
 	public GameObject[] heldVersions;
 	// version of platform that uses script to follow mouse
 	private GameObject heldObj;
@@ -15,9 +17,13 @@ public class CreatePlatform : MonoBehaviour {
 	private int currPlatformNum;
 	private Dictionary<KeyCode, int> keys = new Dictionary<KeyCode, int>();
 	private bool colorSet = false;
+	private Dictionary<int, bool> cooled = new Dictionary<int, bool>();
 	void Start(){
 		hudScript = Camera.main.GetComponent<HUD>();
-		keys.Add(KeyCode.Alpha1, 1);
+		int num = 1;
+		keys.Add(KeyCode.Alpha1, num);
+		cooled.Add(num, true);
+		num++;
 		// keys.Add(KeyCode.Alpha2, 2);
 		// keys.Add(KeyCode.Alpha3, 3);
 	}
@@ -26,7 +32,7 @@ public class CreatePlatform : MonoBehaviour {
 		mouseLocation.z = 0;
 		bool buttonClicked = false;
 		foreach(KeyValuePair<KeyCode, int> key in keys){
-    		if(Input.GetKeyDown(key.Key) && !colorSet){
+    		if(Input.GetKeyDown(key.Key) && !colorSet && cooled[key.Value]){
 				buttonClicked = true;
 				// initialize platform at mouse location
 				if(heldObj){
@@ -47,7 +53,7 @@ public class CreatePlatform : MonoBehaviour {
 			holding = false;
 			hudScript.ChangeColor(currPlatformNum, false);
 			colorSet = false;
-		} else if(Input.GetKeyDown(KeyCode.Space) && holding && !buttonClicked){
+		} else if(Input.GetMouseButtonDown(0) && holding && !buttonClicked){
 			// if holding, object follows mouse until we instantiate it with spacebar
 			FollowMouse script = heldObj.GetComponent<FollowMouse>();
 			float rotation = script.rotation;
@@ -63,9 +69,16 @@ public class CreatePlatform : MonoBehaviour {
 			PlatformSet newScript = currPlatform.GetComponent<PlatformSet>();
 			newScript.RotateTo(rotation);
 			holding = false;
-			hudScript.ChangeColor(currPlatformNum, false);
+			cooled[currPlatformNum] = false;
+			float cooldown = cooldowns[currPlatformNum - 1];
+			hudScript.CoolDown(currPlatformNum, cooldown, Time.time);
 			colorSet = false;
+			StartCoroutine(CoolDown(cooldown, currPlatformNum));
 		}
-
+	}
+	IEnumerator CoolDown(float cooldown, int currPlatformNum){
+		yield return new WaitForSeconds(cooldown);
+		// wait for platform cooldown, then allow player to use it again
+		cooled[currPlatformNum] = true;
 	}
 }
