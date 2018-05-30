@@ -24,8 +24,11 @@ public class CreatePlatform : MonoBehaviour {
 		keys.Add(KeyCode.Alpha1, num);
 		cooled.Add(num, true);
 		num++;
-		// keys.Add(KeyCode.Alpha2, 2);
-		// keys.Add(KeyCode.Alpha3, 3);
+		keys.Add(KeyCode.Alpha2, num);
+		cooled.Add(num, true);
+		num++;
+		keys.Add(KeyCode.Alpha3, num);
+		cooled.Add(num, true);
 	}
 	void Update(){
 		Vector3 mouseLocation = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -69,10 +72,10 @@ public class CreatePlatform : MonoBehaviour {
 			PlatformSet newScript = currPlatform.GetComponent<PlatformSet>();
 			newScript.RotateTo(rotation);
 			holding = false;
-			cooled[currPlatformNum] = false;
-			float cooldown = cooldowns[currPlatformNum - 1];
-			hudScript.CoolDown(currPlatformNum, cooldown, Time.time);
 			colorSet = false;
+			float cooldown = cooldowns[currPlatformNum - 1];
+			cooled[currPlatformNum] = false;
+			hudScript.CoolDown(currPlatformNum, cooldown, Time.time);
 			StartCoroutine(CoolDown(cooldown, currPlatformNum));
 		}
 	}

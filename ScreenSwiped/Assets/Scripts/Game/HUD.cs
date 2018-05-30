@@ -19,6 +19,8 @@ public class HUD : MonoBehaviour {
 	private string scoreFile = "score.dat";
 	private string prevScoreFile = "prevScore.dat";
 	private Color defaultItemBackground;
+	private Dictionary<int, Tuple<float, float>> cooldownCall = new Dictionary<int, Tuple<float, float>>();
+	private List<int> removeNumbers = new List<int>();
 	void Start(){
 		access = ScriptableObject.CreateInstance("DataLoader") as DataLoader;
 		difficulty = access.Load("", difficultyFile);
@@ -36,12 +38,12 @@ public class HUD : MonoBehaviour {
 		defaultItemBackground = rendItem.material.color;
 		// set item list on left side of screen
 		CreateItem(Color.black, number.ToString(), yPos, itemParent.transform.position.x);
-		// yPos -= itemHolder.transform.localScale.y + 0.3f;
-		// number++;
-		// CreateItem(Color.green, number.ToString(), yPos, itemParent.transform.position.x);
-		// yPos -= itemHolder.transform.localScale.y + 0.3f;
-		// number++;
-		// CreateItem(Color.blue, number.ToString(), yPos, itemParent.transform.position.x);
+		yPos -= itemHolder.transform.localScale.y + 0.3f;
+		number++;
+		CreateItem(Color.green, number.ToString(), yPos, itemParent.transform.position.x);
+		yPos -= itemHolder.transform.localScale.y + 0.3f;
+		number++;
+		CreateItem(Color.blue, number.ToString(), yPos, itemParent.transform.position.x);
 	}
 	void Update(){
 		float currPos = transform.position.x;
@@ -50,6 +52,18 @@ public class HUD : MonoBehaviour {
 			if(score > newHighScore)
 				newHighScore = (int) score;
 			// score changes when player (camera) moves
+		if(cooldownCall.Count > 0){
+			foreach(KeyValuePair<int, Tuple<float, float>> key in cooldownCall){
+				CoolDown(key.Key, key.Value.Item1, key.Value.Item2);
+			}
+		}
+		if(removeNumbers.Count > 0){
+			foreach(int i in removeNumbers){
+				cooldownCall.Remove(i);
+			}
+			removeNumbers.Clear();
+			// empty queue
+		}
 	}
 	void OnDestroy(){
 		if(newHighScore > highScore){
@@ -100,20 +114,29 @@ public class HUD : MonoBehaviour {
 	public void CoolDown(int platformNum, float cooldown, float startTime){
 		// when we select certain platforms, we need to cooldown before using them again
 		GameObject platform = platforms[platformNum - 1];
-		float t = (Time.time - startTime) * cooldown;
+		if(cooldown == 0){
+			platform.GetComponent<Renderer>().material.color = Color.Lerp(Color.red, defaultItemBackground, 1);
+			return;
+		}
+		float t = (Time.time - startTime) / cooldown;
 		platform.GetComponent<Renderer>().material.color = Color.Lerp(Color.red, defaultItemBackground, t);
-		float timeStamp = startTime + cooldown;
-		StartCoroutine(CoolDown(Time.deltaTime, platform, cooldown, startTime, timeStamp));
-		// run at same delay as Update function
-	}
-
-	IEnumerator CoolDown(float delayTime, GameObject platform, float cooldown, float startTime, float timeStamp){
-	 	yield return new WaitForSeconds(delayTime);
-		float t = (Time.time - startTime) * cooldown;
-		platform.GetComponent<Renderer>().material.color = Color.Lerp(Color.red, defaultItemBackground, t);
-		if(timeStamp > Time.time){
-			// continue transitioning color
-			StartCoroutine(CoolDown(Time.deltaTime, platform, cooldown, startTime, timeStamp));
+		if(!cooldownCall.ContainsKey(platformNum)){
+			Tuple<float, float> items = new Tuple<float, float>(cooldown, startTime);
+			cooldownCall.Add(platformNum, items);
+		}
+		if(Time.time - startTime >= cooldown){
+			// cooldown is over
+			removeNumbers.Add(platformNum);
 		}
 	}
+}
+class Tuple<T,U>{
+    public T Item1 { get; private set; }
+    public U Item2 { get; private set; }
+
+    public Tuple(T item1, U item2)
+    {
+        Item1 = item1;
+        Item2 = item2;
+    }
 }
