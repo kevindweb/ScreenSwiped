@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour {
-	public Transform player;
+	private Transform player;
 	public float moveSpeed = 3.0f;
 	private Transform myTransform;
 	void Awake () {
-		
+		player = GameObject.FindWithTag("Player").transform;
 		myTransform = transform;
 	}
 	void Update () {

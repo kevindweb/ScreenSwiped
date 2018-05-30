@@ -37,25 +37,20 @@ public class Controller : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-		// rg2d.AddForce(new Vector2(horizontalGravity, 0));
+		rg2d.AddForce(new Vector2(horizontalGravity, 0));
 		// make horizontal gravity
 		if(magnetField.Count != 0){
-			Debug.Log("lskdjf");
 			float step = magnetForce * Time.deltaTime;
 			transform.position = Vector2.MoveTowards(transform.position, magnetField[1].position, step);
-			// Vector2 distance = new Vector2(magnetField.position.x - transform.position.x, magnetField.position.y - transform.position.y);
-			// rg2d.AddForce(distance * magnetForce * Time.deltaTime);
 		}
 	}
 
 	public void Magnet(Transform magnet, bool pull){
 		if(pull){
 			magnetField.Add(1, magnet);
-			Debug.Log(magnetField.Count);
 		} else{
 			// stop being pulled by magnet
 			magnetField.Remove(1);
-			Debug.Log(magnetField.Count);
 		}
 	}
 
