@@ -35,17 +35,23 @@ public class CreatePlatform : MonoBehaviour {
 		mouseLocation.z = 0;
 		bool buttonClicked = false;
 		foreach(KeyValuePair<KeyCode, int> key in keys){
-    		if(Input.GetKeyDown(key.Key) && !colorSet && cooled[key.Value]){
-				buttonClicked = true;
-				// initialize platform at mouse location
-				if(heldObj){
-					Destroy(heldObj);
+    		if(Input.GetKeyDown(key.Key) && cooled[key.Value]){
+				if(!colorSet){
+					buttonClicked = true;
+					// initialize platform at mouse location
+					if(heldObj){
+						Destroy(heldObj);
+					}
+					currPlatformNum = key.Value;
+					hudScript.ChangeColor(currPlatformNum, true);
+					holding = true;
+					heldObj = Instantiate(heldVersions[currPlatformNum - 1], mouseLocation, Quaternion.identity);
+					colorSet = true;
+				} else{
+					hudScript.ChangeColor(currPlatformNum, false);
+					currPlatformNum = key.Value;
+					hudScript.ChangeColor(currPlatformNum, true);
 				}
-				currPlatformNum = key.Value;
-				holding = true;
-				heldObj = Instantiate(heldVersions[currPlatformNum - 1], mouseLocation, Quaternion.identity);
-				hudScript.ChangeColor(currPlatformNum, true);
-				colorSet = true;
 				break;
 			}
 		}

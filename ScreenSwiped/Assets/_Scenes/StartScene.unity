@@ -561,7 +561,7 @@ MonoBehaviour:
   floor: {fileID: 481333955}
   ceiling: {fileID: 1470855326}
   spawnMin: 1
-  spawnMax: 3
+  spawnMax: 2
 --- !u!1001 &1079733070
 Prefab:
   m_ObjectHideFlags: 0
@@ -575,7 +575,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4851560093725396, guid: 81b8897157b9e49e28d5d514571cd3f0, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -8
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 4851560093725396, guid: 81b8897157b9e49e28d5d514571cd3f0, type: 2}
       propertyPath: m_LocalPosition.z

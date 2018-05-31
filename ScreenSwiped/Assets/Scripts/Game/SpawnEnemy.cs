@@ -6,8 +6,23 @@ public class SpawnEnemy : MonoBehaviour {
 	public GameObject[] enemies;
 	public GameObject floor;
 	public GameObject ceiling;
-	public float spawnMin = 0.5f;
+	public float spawnMin = 1f;
 	public float spawnMax = 1.0f;
+	private float spawnIncrease = .3f;
+	private int currentStep = 100;
+	private float originalPosition;
+	void Awake(){
+		originalPosition = transform.position.x;
+		currentStep += (int) originalPosition;
+	}
+	void Update(){
+		if(transform.position.x > currentStep){
+			currentStep += 100;
+			spawnMin = spawnMin * (1 - spawnIncrease);
+			spawnMax = spawnMax * (1 - spawnIncrease);
+			// decrease time in between spawns (increasing spawn rate)
+		}
+	}
 	void Start(){
 		Spawn();
 	}
