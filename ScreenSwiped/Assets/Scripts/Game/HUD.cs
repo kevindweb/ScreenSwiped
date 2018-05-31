@@ -8,6 +8,8 @@ public class HUD : MonoBehaviour {
 	public GameObject itemParent;
 	public GameObject keyItem;
 	public GameObject tCanvas;
+	public Font myFont;
+	private GUIStyle myStyle;
 	private List<GameObject> platforms;
 	// list of usable platforms
 	private DataLoader access;
@@ -18,10 +20,13 @@ public class HUD : MonoBehaviour {
 	private string difficultyFile = "difficulty.dat";
 	private string scoreFile = "score.dat";
 	private string prevScoreFile = "prevScore.dat";
+	private string currScoreFile = "currScore.dat";
 	private Color defaultItemBackground;
 	private Dictionary<int, Tuple<float, float>> cooldownCall = new Dictionary<int, Tuple<float, float>>();
 	private List<int> removeNumbers = new List<int>();
 	void Start(){
+		myStyle = new GUIStyle();
+		myStyle.font = myFont;
 		access = ScriptableObject.CreateInstance("DataLoader") as DataLoader;
 		difficulty = access.Load("", difficultyFile);
 		highScore = access.Load(0, scoreFile);
@@ -71,6 +76,7 @@ public class HUD : MonoBehaviour {
 			access.Save(newHighScore, scoreFile);
 		}
 		access.Save(highScore, prevScoreFile);
+		access.Save((int)score, currScoreFile);
 		// overwrite previous score and set current
 	}
 	void OnGUI(){
@@ -78,9 +84,9 @@ public class HUD : MonoBehaviour {
 		int difficultyWidth = 200;
 		int scoreWidth = 100;
 		GUI.color = Color.red;
-		GUI.Label(new Rect(0, Screen.height - (3*h), difficultyWidth, h), "Difficulty: " + difficulty);
-		GUI.Label(new Rect(0, Screen.height - (2*h), scoreWidth, h), "Score: " + (int) score);
-		GUI.Label(new Rect(0, Screen.height - h, scoreWidth, h), "High Score: " + (int) newHighScore);
+		GUI.Label(new Rect(0, Screen.height - (3*h), difficultyWidth, h), "Difficulty: " + difficulty, myStyle);
+		GUI.Label(new Rect(0, Screen.height - (2*h), scoreWidth, h), "Score: " + (int) score, myStyle);
+		GUI.Label(new Rect(0, Screen.height - h, scoreWidth, h), "High Score: " + (int) newHighScore, myStyle);
 		// put difficulty setting, score, and high score in bottom left of screen
 	}
 	void CreateItem(Color itemColor, string numberKey, float yPos, float xPos){
