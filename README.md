@@ -1,2 +1,2 @@
 # ScreenSwiped
-Drawing based infinite runner game created with Unity
+Platform based infinite bouncing game created with Unity
