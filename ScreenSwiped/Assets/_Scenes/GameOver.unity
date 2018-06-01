@@ -755,6 +755,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc76185e18de5438a9e431e5f2a8993d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosive: {fileID: 1213046857030542, guid: f7891c02f596146729bb02ab4998267c, type: 2}
+  explosiveSpeed: 4.31
+  numExplosives: 25
+  celebrationTime: 3
+  startTime: 0
   backButton: {fileID: 1158507478}
   restartButton: {fileID: 1355023421}
   myFont: {fileID: 12800000, guid: d0cf18cfb57f747c1baa1aa31037ef5a, type: 3}
