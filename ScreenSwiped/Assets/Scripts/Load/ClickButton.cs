@@ -37,12 +37,12 @@ public class ClickButton : MonoBehaviour {
 		}
 	}
 	public void ClickGame(){
-		SceneManager.LoadScene("StartScene");
+		SceneManager.LoadScene(1);
 	}
 	public void ClickDifficulty(){
-		SceneManager.LoadScene("DifficultyScene");
+		SceneManager.LoadScene(2);
 	}
 	public void ClickInstructions(){
-		SceneManager.LoadScene("InstructionScene");
+		SceneManager.LoadScene(3);
 	}
 }

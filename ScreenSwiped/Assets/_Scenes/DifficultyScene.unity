@@ -613,6 +613,9 @@ MonoBehaviour:
   - {fileID: 1180266079}
   backButton: {fileID: 452364655}
   currentIndex: 1
+  radiusObject: {fileID: 1237114963958012, guid: e7bb0fd0207174eaea8ed69179684465,
+    type: 2}
+  invisibleTime: 0.2
 --- !u!1 &867515317
 GameObject:
   m_ObjectHideFlags: 0

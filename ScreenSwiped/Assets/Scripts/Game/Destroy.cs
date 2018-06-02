@@ -8,8 +8,7 @@ public class Destroy : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other){
 		GameObject collider = other.gameObject;
 		if(collider.tag == "Player"){
-			// Debug.Log("player killed!");
-			SceneManager.LoadScene("GameOver");
+			SceneManager.LoadScene(4);
 			// load game over scene
 			return;
 		} else if(collider.tag == "HeldPlatform")

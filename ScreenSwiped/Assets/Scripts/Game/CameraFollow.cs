@@ -22,7 +22,7 @@ public class CameraFollow : MonoBehaviour {
 		} else{
 			// means we lost
 			Destroy(player);
-			SceneManager.LoadScene("GameOver");
+			SceneManager.LoadScene(4);
 		}
 	}
 }

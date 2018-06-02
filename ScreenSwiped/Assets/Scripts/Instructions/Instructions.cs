@@ -14,6 +14,6 @@ public class Instructions : MonoBehaviour {
 	}
 	public void ClickLoad(){
 		// go to load screen
-		SceneManager.LoadScene("LoadScene");
+		SceneManager.LoadScene(0);
 	}
 }

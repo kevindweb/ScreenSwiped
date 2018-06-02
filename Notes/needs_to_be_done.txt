@@ -1,0 +1,6 @@
+What needs to be done?
+
+    - change spawn rate with HARD difficulty setting (increase enemy spawns)
+    - create new enemy that spawns multiple enemies
+    - Health bar??? (game is kind of hard so allow multiple hits of enemies before death)
+    - achievements?

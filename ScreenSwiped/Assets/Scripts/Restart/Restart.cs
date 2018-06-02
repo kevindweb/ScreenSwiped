@@ -39,11 +39,13 @@ public class Restart : MonoBehaviour {
 			isHighScore = true;
 		explosives = new GameObject[numExplosives];
 		forces = new Vector3[numExplosives];
-		startTime = Time.time;
-		for(int i=0; i < numExplosives; i++){
-			explosives[i] = Instantiate(explosive, new Vector3(0, 0, 13), Quaternion.identity);
-			explosives[i].GetComponent<Renderer>().material.color = randomColors[Random.Range(0, randomColors.Length - 1)];
-			forces[i] = RandomVector(-explosiveSpeed, explosiveSpeed);
+		if(isHighScore){
+			startTime = Time.time;
+			for(int i=0; i < numExplosives; i++){
+				explosives[i] = Instantiate(explosive, new Vector3(0, 0, 13), Quaternion.identity);
+				explosives[i].GetComponent<Renderer>().material.color = randomColors[Random.Range(0, randomColors.Length - 1)];
+				forces[i] = RandomVector(-explosiveSpeed, explosiveSpeed);
+			}
 		}
 	}
 	private Vector3 RandomVector(float min, float max) {
@@ -52,15 +54,17 @@ public class Restart : MonoBehaviour {
          return new Vector3(x, y, 0f);
     }
 	void Update(){
-		if(Time.time - startTime < celebrationTime){
-			for(int i=0; i < numExplosives; i++){
-				Rigidbody2D rg2d = explosives[i].GetComponent<Rigidbody2D>();
-				rg2d.velocity = forces[i];
-			}
-		} else{
-			// destroy explosives
-			for(int i=0; i < numExplosives; i++){
-				Destroy(explosives[i]);
+		if(isHighScore){
+			if(Time.time - startTime < celebrationTime){
+				for(int i=0; i < numExplosives; i++){
+					Rigidbody2D rg2d = explosives[i].GetComponent<Rigidbody2D>();
+					rg2d.velocity = forces[i];
+				}
+			} else{
+				// destroy explosives
+				for(int i=0; i < numExplosives; i++){
+					Destroy(explosives[i]);
+				}
 			}
 		}
 		if(Input.GetKeyDown(KeyCode.Escape)){
@@ -83,9 +87,9 @@ public class Restart : MonoBehaviour {
 			GUI.Label(new Rect(width, height + h, w, h), "HIGH SCORE", myStyle);
 	}
 	public void RestartGame(){
-		SceneManager.LoadScene("StartScene");
+		SceneManager.LoadScene(1);
 	}
 	public void ClickLoad(){
-		SceneManager.LoadScene("LoadScene");
+		SceneManager.LoadScene(0);
 	}
 }

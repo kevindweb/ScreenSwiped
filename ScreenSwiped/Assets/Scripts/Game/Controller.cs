@@ -31,7 +31,7 @@ public class Controller : MonoBehaviour {
 	void Update(){
 		if(Input.GetKeyDown(KeyCode.R)){
 			// check for restart
-			SceneManager.LoadScene("GameOver");
+			SceneManager.LoadScene(4);
 			// load game over scene
 		}
 	}
@@ -58,7 +58,7 @@ public class Controller : MonoBehaviour {
 		GameObject collider = other.gameObject;
 		if(collider.tag == "Enemy"){
 			// we lost because we hit an enemy
-			SceneManager.LoadScene("GameOver");
+			SceneManager.LoadScene(4);
 		}
 	}
 }
