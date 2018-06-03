@@ -13,6 +13,7 @@ public class Restart : MonoBehaviour {
 	public float startTime;
 	public Button backButton;
 	public Button restartButton;
+	public Button quitButton;
 	public Font myFont;
 	private GUIStyle myStyle;
 	private DataLoader access;
@@ -73,6 +74,9 @@ public class Restart : MonoBehaviour {
 		} else if(Input.GetKeyDown(KeyCode.R)){
 			// restart game
 			restartButton.onClick.Invoke();
+		} else if(Input.GetKeyDown(KeyCode.Q)){
+			// restart game
+			quitButton.onClick.Invoke();
 		}
 	}
 	void OnGUI(){
@@ -91,5 +95,8 @@ public class Restart : MonoBehaviour {
 	}
 	public void ClickLoad(){
 		SceneManager.LoadScene(0);
+	}
+	public void ClickQuit(){
+		Application.Quit();
 	}
 }

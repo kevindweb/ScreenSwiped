@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class ClickButton : MonoBehaviour {
 	public Button[] buttons;
+	public Button quitButton;
 	// public Button current;
 	// current used for showing player which button is focused
 	public int currentIndex = 1;
@@ -27,6 +28,9 @@ public class ClickButton : MonoBehaviour {
 		} else if(Input.GetKeyDown(KeyCode.Return)){
 			// click this button
 			buttons[currentIndex].onClick.Invoke();
+		} else if(Input.GetKeyDown(KeyCode.Q)){
+			// click this button
+			quitButton.onClick.Invoke();
 		}
 		if(currentIndex != test){
 			// arrow was pressed
@@ -44,5 +48,8 @@ public class ClickButton : MonoBehaviour {
 	}
 	public void ClickInstructions(){
 		SceneManager.LoadScene(3);
+	}
+	public void ClickQuit(){
+		Application.Quit();
 	}
 }

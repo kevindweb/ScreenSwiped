@@ -14,7 +14,7 @@ public class DataLoader : ScriptableObject {
 	private FileStream fs;
 
 	public void OnEnable(){
-		projectPath = Application.dataPath;
+		projectPath = Application.persistentDataPath;
 		dataPath = projectPath + "/Data/";
 		if(!Directory.Exists(dataPath)){
 			//if it doesn't, create it

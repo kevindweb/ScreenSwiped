@@ -14,6 +14,9 @@ public class FollowMouse : MonoBehaviour {
 		rend = GetComponent<SpriteRenderer>();
 		originalColor = rend.color;
 		currColor = originalColor;
+		if(rotation != 0){
+			RotateTo();
+		}
 	}
 	void Update () {
 		if(error && rend.color != newCol){
@@ -56,5 +59,9 @@ public class FollowMouse : MonoBehaviour {
 		if(collider.tag == "RadiusCollider"){
 			error = false;
 		}
+	}
+	void RotateTo(){
+		// rotate to default rotation
+		transform.localRotation = Quaternion.Euler(0.0f, 0.0f, rotation);
 	}
 }

@@ -1,6 +1,14 @@
 What needs to be done?
 
+    - create platform scene in load view to check and set available platforms for game use
+    - create checkpoints to move advance in game
+        - new checkpoints change the player's color, have different enemies, collectables and platforms
+        - add collectables
+            - phase through enemies
+            - time is slowed for one
+        - create more platform functionality
+        - create new enemy that spawns multiple enemies
+            - cluster enemy (cannot follow player but move as a unit (makes use of the destroyer platform))
     - change spawn rate with HARD difficulty setting (increase enemy spawns)
-    - create new enemy that spawns multiple enemies
     - Health bar??? (game is kind of hard so allow multiple hits of enemies before death)
     - achievements?

@@ -11,9 +11,13 @@ public class SpawnEnemy : MonoBehaviour {
 	private float spawnIncrease = .3f;
 	private int currentStep = 100;
 	private float originalPosition;
+	private float defaultSpeed;
+	private float moveSpeed;
 	void Awake(){
 		originalPosition = transform.position.x;
 		currentStep += (int) originalPosition;
+		defaultSpeed = enemies[0].GetComponent<FollowPlayer>().moveSpeed;
+		moveSpeed = defaultSpeed;
 	}
 	void Update(){
 		if(transform.position.x > currentStep){
@@ -38,7 +42,20 @@ public class SpawnEnemy : MonoBehaviour {
 		// enemyHeight is distance from center to one corner of cube (we are a diamond)
 		float y = transform.position.y + Random.Range(topOfFloor + enemyHeight, bottomOfCeiling - enemyHeight);
 		GameObject curr = Instantiate(enemy, new Vector3(transform.position.x, y, transform.position.z), Quaternion.identity);
+		if(moveSpeed != defaultSpeed)
+			curr.GetComponent<FollowPlayer>().moveSpeed = moveSpeed;
 		curr.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 45.0f);
 		Invoke("Spawn", Random.Range(spawnMin, spawnMax));
+	}
+	public void MoveFaster(){
+		// increase default move speed
+		if(moveSpeed == defaultSpeed){
+			moveSpeed += 2f;
+		}
+	}
+	public void DefaultSpeed(){
+		// set enemy move rate back to normal
+		if(moveSpeed != defaultSpeed)
+			moveSpeed = defaultSpeed;
 	}
 }

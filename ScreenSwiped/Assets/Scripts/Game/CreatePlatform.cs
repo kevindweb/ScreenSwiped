@@ -18,6 +18,7 @@ public class CreatePlatform : MonoBehaviour {
 	private Dictionary<KeyCode, int> keys = new Dictionary<KeyCode, int>();
 	private bool colorSet = false;
 	private Dictionary<int, bool> cooled = new Dictionary<int, bool>();
+	private float defaultRotation = 0.0f;
 	void Start(){
 		hudScript = Camera.main.GetComponent<HUD>();
 		int num = 1;
@@ -46,6 +47,7 @@ public class CreatePlatform : MonoBehaviour {
 					hudScript.ChangeColor(currPlatformNum, true);
 					holding = true;
 					heldObj = Instantiate(heldVersions[currPlatformNum - 1], mouseLocation, Quaternion.identity);
+					heldObj.GetComponent<FollowMouse>().rotation = defaultRotation;
 					colorSet = true;
 				} else{
 					hudScript.ChangeColor(currPlatformNum, false);
@@ -63,27 +65,34 @@ public class CreatePlatform : MonoBehaviour {
 			hudScript.ChangeColor(currPlatformNum, false);
 			colorSet = false;
 		} else if(Input.GetMouseButtonDown(0) && holding && !buttonClicked){
+			// if holding, object follows mouse until we instantiate it with mouse click
+			SetPlatform(mouseLocation);
+		} else if(Input.GetKeyDown(KeyCode.Space) && holding && !buttonClicked){
 			// if holding, object follows mouse until we instantiate it with spacebar
-			FollowMouse script = heldObj.GetComponent<FollowMouse>();
-			float rotation = script.rotation;
-			Color col = script.currColor;
-			if(col == Color.red){
-				// do not place platform if we are inside player
-				return;
-			}
-			Destroy(heldObj);
-			heldObj = null;
-			GameObject currPlatform = Instantiate(platforms[currPlatformNum - 1], mouseLocation, Quaternion.identity);
-			// instantiate actual static platform at location
-			PlatformSet newScript = currPlatform.GetComponent<PlatformSet>();
-			newScript.RotateTo(rotation);
-			holding = false;
-			colorSet = false;
-			float cooldown = cooldowns[currPlatformNum - 1];
-			cooled[currPlatformNum] = false;
-			hudScript.CoolDown(currPlatformNum, cooldown, Time.time);
-			StartCoroutine(CoolDown(cooldown, currPlatformNum));
+			SetPlatform(mouseLocation);
 		}
+	}
+	void SetPlatform(Vector3 mouseLocation){
+		FollowMouse script = heldObj.GetComponent<FollowMouse>();
+		float rotation = script.rotation;
+		defaultRotation = rotation;
+		Color col = script.currColor;
+		if(col == Color.red){
+			// do not place platform if we are inside player
+			return;
+		}
+		Destroy(heldObj);
+		heldObj = null;
+		GameObject currPlatform = Instantiate(platforms[currPlatformNum - 1], mouseLocation, Quaternion.identity);
+		// instantiate actual static platform at location
+		PlatformSet newScript = currPlatform.GetComponent<PlatformSet>();
+		newScript.RotateTo(rotation);
+		holding = false;
+		colorSet = false;
+		float cooldown = cooldowns[currPlatformNum - 1];
+		cooled[currPlatformNum] = false;
+		hudScript.CoolDown(currPlatformNum, cooldown, Time.time);
+		StartCoroutine(CoolDown(cooldown, currPlatformNum));
 	}
 	IEnumerator CoolDown(float cooldown, int currPlatformNum){
 		yield return new WaitForSeconds(cooldown);
