@@ -7,8 +7,8 @@ public class SpawnEnemy : MonoBehaviour {
 	public GameObject floor;
 	public GameObject ceiling;
 	public float spawnMin = 1f;
-	public float spawnMax = 1.0f;
-	private float spawnIncrease = .3f;
+	public float spawnMax = 1f;
+	public float spawnIncrease = .3f;
 	private int currentStep = 100;
 	private float originalPosition;
 	private float defaultSpeed;

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour {
-	private Transform player;
 	public float moveSpeed = 3.0f;
+	public int enemyDamage = 10;
+	private Transform player;
 	private Transform myTransform;
 	void Awake () {
 		player = GameObject.FindWithTag("Player").transform;

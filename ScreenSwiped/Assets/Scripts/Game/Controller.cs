@@ -20,29 +20,34 @@ public class Controller : MonoBehaviour {
 	// used to check if player is not moving up or down
 	private bool increasedMovement = false;
 	private bool unsetVariables = true;
+	private bool paused = false;
 	void Awake(){
 		startTime = Time.time;
 		magnetField = new Dictionary<int, Transform>();
 		difficulties.Add("easy", 0.3f);
 		difficulties.Add("normal", 0.5f);
-		difficulties.Add("hard", 0.75f);
+		difficulties.Add("hard", 0.65f);
 		rg2d = GetComponent<Rigidbody2D>();
 		access = ScriptableObject.CreateInstance("DataLoader") as DataLoader;
 		difficulty = access.Load("", file);
 		if(difficulty == null){
 			difficulty = "normal";
 		}
-		float timeSetting = difficulties[difficulty];
+		Time.timeScale = difficulties[difficulty];
 		// set time setting according to difficulty setting
-		Time.timeScale = timeSetting;
+		if(difficulty == "hard"){
+			enemySpawnScript.spawnIncrease = .45f;
+			enemySpawnScript.spawnMin *= .8f;
+			enemySpawnScript.spawnMax *= .8f;
+		}
+		// change enemy spawn rate with hard difficulty via enemySpawnScript
 	}
 
 	void Update(){
-		if(Time.time - startTime > 2){
+		if(Time.time - startTime > 2 && !paused){
 			// wait a few seconds before testing for no movement
 			if(unsetVariables){
 				unsetVariables = false;
-				Debug.Log("being set");
 				// set time and current y velocity
 				yVelocity = Mathf.Abs(rg2d.velocity.y);
 				prevVelocity = 0.0f;
@@ -60,7 +65,7 @@ public class Controller : MonoBehaviour {
 				increasedMovement = true;
 			} else{
 				if(yVelocity > .4f && prevVelocity > .4f){
-					// player hasn't moved a significant amount
+					// player has moved a significant amount
 					if(increasedMovement){
 						increasedMovement = false;
 						// only change speed back to default if we ever changed it
@@ -74,6 +79,17 @@ public class Controller : MonoBehaviour {
 			// check for restart
 			SceneManager.LoadScene(4);
 			// load game over scene
+		} else if(Input.GetKeyDown(KeyCode.P)){
+			if(paused){
+				// unpause
+				paused = false;
+				Time.timeScale = difficulties[difficulty];
+				// set time setting according to difficulty setting
+			} else{
+				paused = true;
+				Time.timeScale = 0;
+				// pause game!
+			}
 		}
 	}
 
@@ -92,14 +108,6 @@ public class Controller : MonoBehaviour {
 		} else{
 			// stop being pulled by magnet
 			magnetField.Remove(1);
-		}
-	}
-
-	void OnTriggerEnter2D(Collider2D other){
-		GameObject collider = other.gameObject;
-		if(collider.tag == "Enemy"){
-			// we lost because we hit an enemy
-			SceneManager.LoadScene(4);
 		}
 	}
 }
