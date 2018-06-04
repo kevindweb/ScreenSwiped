@@ -7,8 +7,7 @@ using UnityEngine.UI;
 public class ChooseDifficulty : MonoBehaviour {
 	public Button[] buttons;
 	public Button backButton;
-	// public Button current;
-	// current used for showing player which button is focused
+	public Button quitButton;
 	public int currentIndex = 1;
 	public GameObject radiusObject;
 	public float invisibleTime = 1f;
@@ -58,6 +57,9 @@ public class ChooseDifficulty : MonoBehaviour {
 		} else if(Input.GetKeyDown(KeyCode.Escape)){
 			// press back button
 			backButton.onClick.Invoke();
+		} else if(Input.GetKeyDown(KeyCode.Q)){
+			// press back button
+			quitButton.onClick.Invoke();
 		}
 		if(currentIndex != test){
 			// arrow was pressed
@@ -104,6 +106,9 @@ public class ChooseDifficulty : MonoBehaviour {
 	public void ClickLoad(){
 		// go to load screen
 		SceneManager.LoadScene(0);
+	}
+	public void ClickQuit(){
+		Application.Quit();
 	}
 	private void DifficultySetBubble(){
 		startTime = Time.time;

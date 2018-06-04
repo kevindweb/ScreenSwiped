@@ -1,7 +1,8 @@
 What needs to be done?
 
-    - create platform instruction scene (different from general instructions!!)
-        - create platform scene in load view to check and set available platforms for game use
+    - create platform scene in load view to check and set available platforms for game use
+        - get button moving platforms functionality
+        - create scrollable list of extra platforms to choose from
     - create checkpoints to move advance in game
         - new checkpoints change the player's color, have different enemies, collectables and platforms
         - add collectables

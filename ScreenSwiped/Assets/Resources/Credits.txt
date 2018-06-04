@@ -2,5 +2,10 @@ keyboard-key-1.png - Icon made by Freepik (www.freepik.com) from www.flaticon.co
 keyboard-key-a.png - Icon made by Freepik (www.freepik.com) from www.flaticon.com
 keyboard-key-d.png - Icon made by Freepik (www.freepik.com) from www.flaticon.com
 keyboard-key-s.png - Icon made by Freepik (www.freepik.com) from www.flaticon.com
+keyboard-key-q.png - Icon made by Freepik (www.freepik.com) from www.flaticon.com
+keyboard-key-p.png - Icon made by Freepik (www.freepik.com) from www.flaticon.com
+keyboard-key-r.png - Icon made by Freepik (www.freepik.com) from www.flaticon.com
+keyboard-key-arrows.png - Icon made by Freepik (www.freepik.com) from www.flaticon.com
+keyboard-key-esc.png - Icon found at https://icons8.com/icon/set/escape/all
 mouse.png - Icon made by Freepik (www.freepik.com) from www.flaticon.com
 cursor.png - Icon made by Freepik (www.freepik.com) from www.flaticon.com
