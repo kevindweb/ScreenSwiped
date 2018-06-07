@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class PlatformInformation : MonoBehaviour {
+public class PlatformInformation : MonoBehaviour{
 	public Button backButton;
 	public Button quitButton;
 	public GameObject platformHolder;
@@ -18,7 +18,10 @@ public class PlatformInformation : MonoBehaviour {
 	private string temp;
 	private int[] currentList;
 	private int[] testList;
+	private Vector3[] locations;
 	private string file = "platformlist.dat";
+	private int swap1 = 0;
+	private int swap2 = 0;
 	void Awake(){
 		access = ScriptableObject.CreateInstance("DataLoader") as DataLoader;
 		int lengthy = platformList.Length;
@@ -50,6 +53,7 @@ public class PlatformInformation : MonoBehaviour {
 				Debug.Log("updated");
 			}
 		}
+		locations = new Vector3[lengthy];
 		platformColors = new Color[] {Color.black, Color.green, Color.blue};
 		int num = 0;
 		platformParents = new GameObject[lengthy];
@@ -84,12 +88,28 @@ public class PlatformInformation : MonoBehaviour {
 			// press back button
 			quitButton.onClick.Invoke();
 		}
-		// else{
-		// 	if(currentList.Length > 1){
-		// 		// swapping platform functionality
-		// 	}
-		// }
-
+		int lengthy = platformList.Length;
+		lengthy = (lengthy > 5) ? 5 : lengthy;
+		// make sure lengthy is not greater than 5
+		int clicked = 0;
+		int moused = 0;
+		DragHandler clickPlat = null;
+		for(int i=1; i < lengthy; i++){
+			DragHandler script = platformParents[i].GetComponent<DragHandler>();
+			if(script.clicked){
+				clicked = i;
+				clickPlat = script;
+			} else if(script.mouseHere){
+				moused = i;
+			}
+		}
+		if(clicked > 0 && moused > 0){
+			// holding platform one over another
+			clickPlat.hovering = true;
+			swap1 = clicked;
+			swap2 = moused;
+			clickPlat.script = this.GetComponent<PlatformInformation>();
+		}
 	}
 	void OnDestroy(){
 		if(!ArraysEqual(currentList, testList)){
@@ -98,8 +118,19 @@ public class PlatformInformation : MonoBehaviour {
 			// access.Save(ArrayToString(currentList), file);
 		}
 	}
+	public void SwapUs(){
+		SwapPlatformPositions(swap1, swap2);
+		swap1 = 0;
+		swap2 = 0;
+	}
 	void ShowPlatform(string name, Vector3 pos, Color col, int num){
+		locations[num] = pos;
+		// set the original position of object
 		GameObject background = Instantiate(platformBackground, new Vector3(pos.x, pos.y, pos.z - 2), Quaternion.identity);
+		if(num == 0){
+			// don't allow default platform to be moved!
+			Destroy(background.GetComponent<DragHandler>());
+		}
 		background.GetComponent<Renderer>().material.color = col;
 		GameObject text = Instantiate(platformName, pos, Quaternion.identity);
 		TextParentFollow script = text.GetComponent<TextParentFollow>();
@@ -123,10 +154,12 @@ public class PlatformInformation : MonoBehaviour {
 			// first element is off limits to swap
 			return false;
 		}
-		// switching physical positions of platforms
-		Vector3 temp = platformParents[num1].transform.position;
-		platformParents[num1].transform.position = platformParents[num2].transform.position;
+		// switch the current locations of platforms as well as their originally set locations
+		Vector3 temp = locations[num1];
+		platformParents[num1].transform.position = locations[num2];
 		platformParents[num2].transform.position = temp;
+		locations[num1] = locations[num2];
+		locations[num2] = temp;
 		// int temp = currentList[num1];
 		// currentList[num1] = currentList[num2];
 		// currentList[num2] = temp;

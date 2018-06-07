@@ -20,8 +20,12 @@ public class Instructions : MonoBehaviour {
 		// go to load screen
 		SceneManager.LoadScene(0);
 	}
+	public void ClickPlatform(){
+		// go to platform screen
+		SceneManager.LoadScene(5);
+	}
 	public void ClickQuit(){
 		// quit application
-		Application.Quit();		
+		Application.Quit();
 	}
 }
