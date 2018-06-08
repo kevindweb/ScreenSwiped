@@ -29,14 +29,12 @@ public class DragHandler : MonoBehaviour{
 	void OnMouseUp(){
 		if(!hovering){
 			transform.position = originalPosition;
-			Debug.Log("back!");
 		} else{
-			Debug.Log("swap!");
 			// tell camera to switch platform positions
 			script.SwapUs();
 		}
-		clicked = false;
 		hovering = false;
+		clicked = false;
 	}
 	void OnMouseOver(){
 		mouseHere = true;

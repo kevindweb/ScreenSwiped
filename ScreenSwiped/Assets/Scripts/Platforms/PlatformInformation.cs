@@ -11,6 +11,7 @@ public class PlatformInformation : MonoBehaviour{
 	public GameObject[] platformList;
 	public GameObject tCanvas;
 	public GameObject platformName;
+	public GameObject topLayer;
 	public GameObject platformBackground;
 	private GameObject[] platformParents;
 	private Color[] platformColors;
@@ -50,7 +51,6 @@ public class PlatformInformation : MonoBehaviour{
 					}
 				}
 				currentList = newList;
-				Debug.Log("updated");
 			}
 		}
 		locations = new Vector3[lengthy];
@@ -78,7 +78,6 @@ public class PlatformInformation : MonoBehaviour{
 				// ran function on 4 platforms, now put the rest in a list to choose from at the bottom
 			}
 		}
-		// SwapPlatformPositions(1, 2);
 	}
 	void Update(){
 		if(Input.GetKeyDown(KeyCode.Escape)){
@@ -109,7 +108,8 @@ public class PlatformInformation : MonoBehaviour{
 			swap1 = clicked;
 			swap2 = moused;
 			clickPlat.script = this.GetComponent<PlatformInformation>();
-		}
+		} else if(clickPlat != null)
+			clickPlat.hovering = false;
 	}
 	void OnDestroy(){
 		if(!ArraysEqual(currentList, testList)){
@@ -126,15 +126,15 @@ public class PlatformInformation : MonoBehaviour{
 	void ShowPlatform(string name, Vector3 pos, Color col, int num){
 		locations[num] = pos;
 		// set the original position of object
+		GameObject layer = Instantiate(topLayer, new Vector3(pos.x, pos.y, pos.z - 3), Quaternion.identity);
 		GameObject background = Instantiate(platformBackground, new Vector3(pos.x, pos.y, pos.z - 2), Quaternion.identity);
-		if(num == 0){
-			// don't allow default platform to be moved!
-			Destroy(background.GetComponent<DragHandler>());
-		}
 		background.GetComponent<Renderer>().material.color = col;
+		BackgroundFollow backgroundScript = background.GetComponent<BackgroundFollow>();
+
+		backgroundScript.parent = layer;
 		GameObject text = Instantiate(platformName, pos, Quaternion.identity);
 		TextParentFollow script = text.GetComponent<TextParentFollow>();
-		script.parent = background;
+		script.parent = layer;
 		script.xOffset = 0;
 		text.transform.SetParent(tCanvas.transform);
 		Text ourText = text.GetComponent<Text>();
@@ -142,12 +142,17 @@ public class PlatformInformation : MonoBehaviour{
 		GameObject numText = Instantiate(platformName, pos, Quaternion.identity);
 		numText.transform.SetParent(tCanvas.transform);
 		script = numText.GetComponent<TextParentFollow>();
-		script.parent = background;
+		script.parent = layer;
 		script.xOffset = (background.transform.localScale.x / 2) - .15f;
 		ourText = numText.GetComponent<Text>();
 		ourText.text = (num+1).ToString();
 		ourText.fontSize = 19;
-		platformParents[num] = background;
+		if(num == 0){
+			// don't allow default platform to be moved!
+			Destroy(layer.GetComponent<DragHandler>());
+			Destroy(background.GetComponent<BackgroundFollow>());
+		}
+		platformParents[num] = layer;
 	}
 	bool SwapPlatformPositions(int num1, int num2){
 		if(num1 == 0 || num2 == 0){

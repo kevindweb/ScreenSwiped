@@ -610,7 +610,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 455243119}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -5.15, y: -0.85, z: 0}
+  m_LocalPosition: {x: -5.36, y: -0.85, z: 0}
   m_LocalScale: {x: 0, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2038,6 +2038,7 @@ MonoBehaviour:
   tCanvas: {fileID: 847554324}
   platformName: {fileID: 1801822542292812, guid: 3165b214394954c059f0f3b5c8c11aa6,
     type: 2}
+  topLayer: {fileID: 1555616217407718, guid: 816c01de36ab543259832cec4c4090fb, type: 2}
   platformBackground: {fileID: 1465003273286152, guid: 3f18551ef9f584f1f9d57d08341a1d7e,
     type: 2}
 --- !u!1 &1558174524
@@ -2065,7 +2066,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1558174524}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.24, y: -0.4, z: 10}
+  m_LocalPosition: {x: -3.49, y: -0.4, z: 10}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 1518035229}
@@ -2135,7 +2136,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1127694851}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.94, y: -1.1, z: 20}
+  m_LocalPosition: {x: 3.24, y: -1.1, z: 20}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 1004689488}
