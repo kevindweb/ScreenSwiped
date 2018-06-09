@@ -9,6 +9,7 @@ public class CreatePlatform : MonoBehaviour {
 	// cooldowns of platform types
 	public GameObject[] heldVersions;
 	// version of platform that uses script to follow mouse
+	public int[] currentList;
 	private GameObject heldObj;
 	// used to destroy instantiated object following mouse
 	private bool holding = false;
@@ -21,6 +22,7 @@ public class CreatePlatform : MonoBehaviour {
 	private float defaultRotation = 0.0f;
 	void Start(){
 		hudScript = Camera.main.GetComponent<HUD>();
+		currentList = hudScript.currentList;
 		int num = 1;
 		keys.Add(KeyCode.Alpha1, num);
 		cooled.Add(num, true);
@@ -29,6 +31,9 @@ public class CreatePlatform : MonoBehaviour {
 		cooled.Add(num, true);
 		num++;
 		keys.Add(KeyCode.Alpha3, num);
+		cooled.Add(num, true);
+		num++;
+		keys.Add(KeyCode.Alpha4, num);
 		cooled.Add(num, true);
 	}
 	void Update(){
@@ -83,7 +88,7 @@ public class CreatePlatform : MonoBehaviour {
 		}
 		Destroy(heldObj);
 		heldObj = null;
-		GameObject currPlatform = Instantiate(platforms[currPlatformNum - 1], mouseLocation, Quaternion.identity);
+		GameObject currPlatform = Instantiate(platforms[currentList[currPlatformNum - 1]], mouseLocation, Quaternion.identity);
 		// instantiate actual static platform at location
 		PlatformSet newScript = currPlatform.GetComponent<PlatformSet>();
 		newScript.RotateTo(rotation);

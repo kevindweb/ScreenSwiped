@@ -16,6 +16,7 @@ public class Restart : MonoBehaviour {
 	public Button quitButton;
 	public Font myFont;
 	private GUIStyle myStyle;
+	private GUIStyle highScoreStyle;
 	private DataLoader access;
 	private int highScore;
 	private string scoreFile = "score.dat";
@@ -32,6 +33,10 @@ public class Restart : MonoBehaviour {
 		myStyle = new GUIStyle();
 		myStyle.font = myFont;
 		myStyle.alignment = TextAnchor.MiddleCenter;
+		highScoreStyle = new GUIStyle();
+		highScoreStyle.font = myFont;
+		highScoreStyle.alignment = TextAnchor.MiddleCenter;
+		highScoreStyle.fontSize = 26;
 		access = ScriptableObject.CreateInstance("DataLoader") as DataLoader;
 		highScore = access.Load(0, scoreFile);
 		prevScore = access.Load(0, prevScoreFile);
@@ -82,13 +87,12 @@ public class Restart : MonoBehaviour {
 	void OnGUI(){
 		int h = 30;
 		int w = 100;
-		// Debug.Log("highScore: " + highScore);
 		float height = (Screen.height-h) * .25f;
 		float width = (Screen.width - w) * .5f;
 		GUI.Label(new Rect(width, height - h, w, h), "Score: " + currScore, myStyle);
 		GUI.Label(new Rect(width, height, w, h), "GAME OVER", myStyle);
 		if(isHighScore)
-			GUI.Label(new Rect(width, height + h, w, h), "HIGH SCORE", myStyle);
+			GUI.Label(new Rect(width, height + h, w, h), "HIGH SCORE", highScoreStyle);
 	}
 	public void RestartGame(){
 		SceneManager.LoadScene(1);

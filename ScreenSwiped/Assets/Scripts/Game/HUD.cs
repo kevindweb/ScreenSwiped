@@ -9,6 +9,8 @@ public class HUD : MonoBehaviour {
 	public GameObject keyItem;
 	public GameObject tCanvas;
 	public Font myFont;
+	public Color[] platformColors;
+	public int[] currentList;
 	private GUIStyle myStyle;
 	private List<GameObject> platforms;
 	// list of usable platforms
@@ -21,34 +23,37 @@ public class HUD : MonoBehaviour {
 	private string scoreFile = "score.dat";
 	private string prevScoreFile = "prevScore.dat";
 	private string currScoreFile = "currScore.dat";
+	private string platformFile = "platformlist.dat";
 	private Color defaultItemBackground;
 	private Dictionary<int, Tuple<float, float>> cooldownCall = new Dictionary<int, Tuple<float, float>>();
 	private List<int> removeNumbers = new List<int>();
-	void Start(){
+	void Awake(){
 		myStyle = new GUIStyle();
 		myStyle.font = myFont;
 		access = ScriptableObject.CreateInstance("DataLoader") as DataLoader;
 		difficulty = access.Load("", difficultyFile);
 		highScore = access.Load(0, scoreFile);
+		currentList = StringToArray(access.Load("", platformFile));
 		if(difficulty == null){
 			// set to default normal difficulty
 			difficulty = "normal";
 			access.Save(difficulty, difficultyFile);
 		}
+		if(currentList == null)
+			access.Save(platformFile, "0");
+	}
+	void Start(){
 		newHighScore = highScore;
 		float yPos = 2.0f;
-		int number = 1;
 		platforms = new List<GameObject>();
 		Renderer rendItem = itemParent.GetComponent<Renderer>();
+		int lengthy = platformColors.Length;
 		defaultItemBackground = rendItem.material.color;
 		// set item list on left side of screen
-		CreateItem(Color.black, number.ToString(), yPos, itemParent.transform.position.x);
-		yPos -= itemHolder.transform.localScale.y + 0.3f;
-		number++;
-		CreateItem(Color.green, number.ToString(), yPos, itemParent.transform.position.x);
-		yPos -= itemHolder.transform.localScale.y + 0.3f;
-		number++;
-		CreateItem(Color.blue, number.ToString(), yPos, itemParent.transform.position.x);
+		for(int number=0; number < lengthy; number++){
+			CreateItem(platformColors[currentList[number]], (number+1).ToString(), yPos, itemParent.transform.position.x);
+			yPos -= itemHolder.transform.localScale.y + 0.3f;
+		}
 	}
 	void Update(){
 		float currPos = transform.position.x;
@@ -106,6 +111,17 @@ public class HUD : MonoBehaviour {
 		Text ourText = number.GetComponent<Text>();
 		ourText.text = numberKey;
 		// place text inside the item on left side of screen
+	}
+	int[] StringToArray(string temp){
+		if(temp == "")
+			return null;
+		char[] numbers = temp.ToCharArray();
+		int nLengthy = numbers.Length;
+		int[] arr = new int[nLengthy];
+		for(int z=0; z < nLengthy; z++){
+			arr[z] = (int)char.GetNumericValue(numbers[z]);
+		}
+		return arr;
 	}
 	public void ChangeColor(int platformNum, bool selected){
 		// when selected, show player which platform is selected

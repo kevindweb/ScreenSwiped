@@ -13,8 +13,10 @@ public class PlatformInformation : MonoBehaviour{
 	public GameObject platformName;
 	public GameObject topLayer;
 	public GameObject platformBackground;
+	public string[] platformNames;
+	public Color[] platformColors;
 	private GameObject[] platformParents;
-	private Color[] platformColors;
+	private TextParentFollow[] numbersFollow;
 	private DataLoader access;
 	private string temp;
 	private int[] currentList;
@@ -41,6 +43,7 @@ public class PlatformInformation : MonoBehaviour{
 			currentList = StringToArray(temp);
 			testList = StringToArray(temp);
 			if(currentList.Length != lengthy){
+				Debug.Log("updated list!");
 				// we updated the platforms list
 				int[] newList = new int[lengthy];
 				for(int y=0; y < lengthy; y++){
@@ -54,25 +57,27 @@ public class PlatformInformation : MonoBehaviour{
 			}
 		}
 		locations = new Vector3[lengthy];
-		platformColors = new Color[] {Color.black, Color.green, Color.blue};
+		numbersFollow = new TextParentFollow[lengthy];
+		// platformColors = new Color[] {Color.black, Color.green, Color.blue, Color.magenta};
+		// platformNames = new string[] {"Default", "Magnet", "Destroyer", "Healthy"};
 		int num = 0;
 		platformParents = new GameObject[lengthy];
 		Vector3 pos = platformHolder.transform.position;
-		ShowPlatform("Default", pos, platformColors[num], num);
+		ShowPlatform(platformNames[num], pos, platformColors[num], num);
 		float change = .85f;
 		if(lengthy > 1){
 			if(lengthy < 5){
 				for(int x = 1; x < lengthy; x++){
 					num++;
 					pos = new Vector3(pos.x, pos.y - change, pos.z);
-					ShowPlatform("Name " + (num + 1), pos, platformColors[num], num);
+					ShowPlatform(platformNames[currentList[num]], pos, platformColors[currentList[num]], num);
 					change = .6f;
 				}
 			} else{
 				for(int x = 1; x < 5; x++){
 					num++;
 					pos = new Vector3(pos.x, pos.y - change, pos.z);
-					ShowPlatform("Name " + (num + 1), pos, platformColors[num], num);
+					ShowPlatform(platformNames[currentList[num]], pos, platformColors[currentList[num]], num);
 					change = .6f;
 				}
 				// ran function on 4 platforms, now put the rest in a list to choose from at the bottom
@@ -114,8 +119,7 @@ public class PlatformInformation : MonoBehaviour{
 	void OnDestroy(){
 		if(!ArraysEqual(currentList, testList)){
 			// user changed order of platforms
-			Debug.Log("platform order changed");
-			// access.Save(ArrayToString(currentList), file);
+			access.Save(ArrayToString(currentList), file);
 		}
 	}
 	public void SwapUs(){
@@ -144,6 +148,7 @@ public class PlatformInformation : MonoBehaviour{
 		script = numText.GetComponent<TextParentFollow>();
 		script.parent = layer;
 		script.xOffset = (background.transform.localScale.x / 2) - .15f;
+		numbersFollow[num] = script;
 		ourText = numText.GetComponent<Text>();
 		ourText.text = (num+1).ToString();
 		ourText.fontSize = 19;
@@ -156,6 +161,7 @@ public class PlatformInformation : MonoBehaviour{
 	}
 	bool SwapPlatformPositions(int num1, int num2){
 		if(num1 == 0 || num2 == 0){
+			Debug.Log("errors with default platform?");
 			// first element is off limits to swap
 			return false;
 		}
@@ -165,10 +171,17 @@ public class PlatformInformation : MonoBehaviour{
 		platformParents[num2].transform.position = temp;
 		locations[num1] = locations[num2];
 		locations[num2] = temp;
-		// int temp = currentList[num1];
-		// currentList[num1] = currentList[num2];
-		// currentList[num2] = temp;
-		// // swap the stored position of these platforms
+		int tempNum = currentList[num1];
+		currentList[num1] = currentList[num2];
+		currentList[num2] = tempNum;
+		// swap the stored position of these platforms
+		TextParentFollow scriptTemp = numbersFollow[num1];
+		GameObject followTemp = scriptTemp.parent;
+		numbersFollow[num1].parent = numbersFollow[num2].parent;
+		numbersFollow[num1] = numbersFollow[num2];
+		numbersFollow[num2].parent = followTemp;
+		numbersFollow[num2] = scriptTemp;
+		// change where the numbers associated with platform are
 		return true;
 	}
 	string ArrayToString(int[] temp){
