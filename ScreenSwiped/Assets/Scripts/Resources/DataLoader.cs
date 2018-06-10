@@ -62,6 +62,5 @@ public class DataLoader : ScriptableObject {
 			// Debug.Break();
 			return default(T);
 		}
-
 	}
 }
