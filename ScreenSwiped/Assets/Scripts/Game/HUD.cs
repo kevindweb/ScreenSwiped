@@ -51,8 +51,11 @@ public class HUD : MonoBehaviour {
 		defaultItemBackground = rendItem.material.color;
 		// set item list on left side of screen
 		for(int number=0; number < lengthy; number++){
-			CreateItem(platformColors[currentList[number]], (number+1).ToString(), yPos, itemParent.transform.position.x);
-			yPos -= itemHolder.transform.localScale.y + 0.3f;
+			if(number < 4){
+				// only using 4 platforms at a time
+				CreateItem(platformColors[currentList[number]], (number+1).ToString(), yPos, itemParent.transform.position.x);
+				yPos -= itemHolder.transform.localScale.y + 0.3f;
+			}
 		}
 	}
 	void Update(){

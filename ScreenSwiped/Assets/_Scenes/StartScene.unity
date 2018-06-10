@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 52744538}
   - component: {fileID: 52744543}
   - component: {fileID: 52744544}
+  - component: {fileID: 52744545}
   m_Layer: 0
   m_Name: CirclePlayer
   m_TagString: Player
@@ -256,6 +257,25 @@ MonoBehaviour:
   enemyDamages: 14000000
   healthBar: {fileID: 448892129}
   transitionTime: 0.3
+--- !u!114 &52744545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 52744537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ead63df218d441289c40a8e449b26ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilities:
+  - Frequent1
+  - Normy
+  - Rare65
+  - Epic
+  rareIndex: 00000000010000000200000003000000
+  abilityTimer: 01000000000000000100000001000000
+  howRare: 2d000000230000000f00000005000000
 --- !u!1 &58494611
 GameObject:
   m_ObjectHideFlags: 0

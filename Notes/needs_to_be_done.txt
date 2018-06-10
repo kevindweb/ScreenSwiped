@@ -1,5 +1,6 @@
 What needs to be done?
 
+    - have collectable spawner, very similar to EnemySpawner;
     - create platform scene in load view to check and set available platforms for game use
         - create scrollable list of extra platforms to choose from
     - make bottom destroyer only destroy player and nothing else
@@ -13,18 +14,24 @@ What needs to be done?
             - adds ceiling runner functionality
             - double platform setting?
             - hitting enemies gives health
+            - decreasing hitbox
         - create more platform functionality
             - normal (Default)
             - pulls player towards it (Magnet)
             - destroys enemies (Destroyer)
             - healing (Healthy)
-            - find player and set platform right below - always diagonal (SaveMe) 
+            - find player and set platform right below - always diagonal (SaveMe)
+            - creates extra long platform in whatever orientation player sets (Extraaa)
+                - triples its width (if not hitting ceiling)
         - create new enemies
             - cluster enemy (cannot follow player but move as a unit (makes use of the destroyer platform))
             - enemy that spawns poison creep in its path
+            - one enemy that moves at random quick intervals (like jumping spiders from Isaac)
+            - enemies with status effects can do things to platforms (ex: burning)
 
     - platforms have functionality, but are completely different from collectables
         - platforms can perform actions, but not give abilities to player
         - collectables do opposite, sending abilities to player while being consumed after touch (rarity depends on ability)
+            - SOME CAN BE HARMFUL (increasing hitbox for period of time)
             - generic collectable object (mystery abilities)
             - some abilities will be full game use, others will be for certain time

@@ -13,6 +13,8 @@ public class HealthBar : MonoBehaviour {
 	private Dictionary<string, int> damages;
 	// enemy tag = key, enemy damage = value
 	private int currentHealth;
+	private Abilities aScript;
+	// our abilities script
 	void Awake(){
 		damages = new Dictionary<string, int>();
 		for(int i=0; i < enemyTags.Length; i++){
@@ -23,6 +25,7 @@ public class HealthBar : MonoBehaviour {
 		healthBar.wholeNumbers = false;
 		healthBar.value = startHealth;
 		currentHealth = startHealth;
+		aScript = GetComponent<Abilities>();
 	}
 	void OnTriggerEnter2D(Collider2D other){
 		GameObject collider = other.gameObject;
@@ -35,8 +38,13 @@ public class HealthBar : MonoBehaviour {
 				} else{
 					SetHealth();
 				}
-				break;
+				return;
 			}
+		}
+		if(collider.tag == "Collectable"){
+			// if we are here, we hit a collectable
+			aScript.GetRandom();
+			// find a random ability, and initialize it
 		}
 	}
 	void SetHealth(){
