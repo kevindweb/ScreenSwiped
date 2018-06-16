@@ -1744,13 +1744,19 @@ MonoBehaviour:
   - {fileID: 1790392302293730, guid: 7f3a578e7e8c84bde98793d436c156cc, type: 2}
   - {fileID: 1486627172755774, guid: 976d360120d474cc192134bf73662a77, type: 2}
   - {fileID: 1534426730646172, guid: 8d672703398bf439fb29c9b955bd95ae, type: 2}
-  - {fileID: 1534426730646172, guid: 8d672703398bf439fb29c9b955bd95ae, type: 2}
+  - {fileID: 1947208758083158, guid: edb498743429b48a3958cdb03a15e2da, type: 2}
+  - {fileID: 1759956758832154, guid: 7b8319c79686248f199161cef953e2f5, type: 2}
+  - {fileID: 1449541188875362, guid: ebf7bc495b46246168fefed70700ad5f, type: 2}
   cooldowns:
   - 0
   - 1.5
   - 2.5
   - 2.5
+  - 2.5
+  - 2.5
   heldVersions:
+  - {fileID: 1790392302293730, guid: 660a5137cfd9a435195668fd8cf33229, type: 2}
+  - {fileID: 1790392302293730, guid: 660a5137cfd9a435195668fd8cf33229, type: 2}
   - {fileID: 1790392302293730, guid: 660a5137cfd9a435195668fd8cf33229, type: 2}
   - {fileID: 1790392302293730, guid: 660a5137cfd9a435195668fd8cf33229, type: 2}
   - {fileID: 1790392302293730, guid: 660a5137cfd9a435195668fd8cf33229, type: 2}
@@ -1777,4 +1783,6 @@ MonoBehaviour:
   - {r: 0, g: 1, b: 0, a: 0}
   - {r: 0, g: 0, b: 1, a: 0}
   - {r: 1, g: 0, b: 1, a: 0}
+  - {r: 1, g: 1, b: 0, a: 0}
+  - {r: 0, g: 1, b: 1, a: 0}
   currentList: 

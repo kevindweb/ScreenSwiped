@@ -34,6 +34,10 @@ public class HUD : MonoBehaviour {
 		difficulty = access.Load("", difficultyFile);
 		highScore = access.Load(0, scoreFile);
 		currentList = StringToArray(access.Load("", platformFile));
+		for(int i=0; i < currentList.Length; i++){
+			Debug.Log(currentList[i]);
+		}
+		Debug.Break();
 		if(difficulty == null){
 			// set to default normal difficulty
 			difficulty = "normal";

@@ -57,39 +57,21 @@ public class PlatformInformation : MonoBehaviour{
 				}
 				currentList = newList;
 			}
+			Shuffle(currentList);
 		}
 		locations = new Vector3[lengthy];
 		numbersFollow = new TextParentFollow[lengthy];
-		// platformColors = new Color[] {Color.black, Color.green, Color.blue, Color.magenta};
-		// platformNames = new string[] {"Default", "Magnet", "Destroyer", "Healthy"};
 		int num = 0;
 		platformParents = new GameObject[lengthy];
 		Vector3 pos = platformHolder.transform.position;
 		ShowPlatform(platformNames[num], pos, platformColors[num], num);
 		float change = .85f;
 		if(lengthy > 1){
-			if(lengthy < 4){
-				for(int x = 1; x < lengthy; x++){
-					num++;
-					pos = new Vector3(pos.x, pos.y - change, pos.z);
-					ShowPlatform(platformNames[currentList[num]], pos, platformColors[currentList[num]], num);
-					change = .6f;
-				}
-			} else{
-				for(int x = 1; x < 4; x++){
-					num++;
-					pos = new Vector3(pos.x, pos.y - change, pos.z);
-					ShowPlatform(platformNames[currentList[num]], pos, platformColors[currentList[num]], num);
-					change = .6f;
-				}
-				// ran function on 4 platforms, now put the rest in a list to choose from at the bottom
-				// num++;
-				// pos = new Vector3(pos.x, pos.y - 1, pos.z);
-				// change = 0;
-				// for(int n=4; n < lengthy; n++){
-				// 	ShowPlatform(platformNames[currentList[n]], pos, platformColors[currentList[n]], n);
-				// 	// add remaining elements to list
-				// }
+			for(int x = 1; x < 4; x++){
+				num++;
+				pos = new Vector3(pos.x, pos.y - change, pos.z);
+				ShowPlatform(platformNames[currentList[num]], pos, platformColors[currentList[num]], num);
+				change = .6f;
 			}
 		}
 	}
@@ -202,6 +184,7 @@ public class PlatformInformation : MonoBehaviour{
 	string ArrayToString(int[] temp){
 		string item = "";
 		for(int i=0; i < temp.Length; i++){
+			Debug.Log("temp i: " + temp[i]);
 			item += temp[i];
 		}
 		return item;
@@ -214,6 +197,18 @@ public class PlatformInformation : MonoBehaviour{
 			arr[z] = (int)char.GetNumericValue(numbers[z]);
 		}
 		return arr;
+	}
+	void Shuffle(int[] a){
+		// Loops through array
+		for (int i = a.Length-1; i > 1; i--){
+			// Randomize a number between 0 and i (so that the range decreases each time)
+			int rnd = UnityEngine.Random.Range(1,i);
+			// Save the value of the current i, otherwise it'll overright when we swap the values
+			int temp = a[i];
+			// Swap the new and old values
+			a[i] = a[rnd];
+			a[rnd] = temp;
+		}
 	}
 	public void ClickLoad(){
 		// go to load screen
