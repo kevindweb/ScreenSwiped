@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,8 +8,6 @@ using UnityEngine.UI;
 public class PlatformInformation : MonoBehaviour{
 	public Button backButton;
 	public Button quitButton;
-	public Button[] upDown;
-	public GameObject lineSeperator;
 	public GameObject platformHolder;
 	public GameObject[] platformList;
 	public GameObject tCanvas;
@@ -27,8 +26,6 @@ public class PlatformInformation : MonoBehaviour{
 	private string file = "platformlist.dat";
 	private int swap1 = 0;
 	private int swap2 = 0;
-	private int currentClickNum;
-	private int startListIndex = 4;
 	void Awake(){
 		access = ScriptableObject.CreateInstance("DataLoader") as DataLoader;
 		int lengthy = platformList.Length;
@@ -46,6 +43,7 @@ public class PlatformInformation : MonoBehaviour{
 			// we receive the list in string form
 			currentList = StringToArray(temp);
 			testList = StringToArray(temp);
+			currentList = new int[] {0, 1, 2, 3, 4, 5};
 			if(currentList.Length != lengthy){
 				Debug.Log("updated list!");
 				// we updated the platforms list
@@ -77,8 +75,6 @@ public class PlatformInformation : MonoBehaviour{
 					ShowPlatform(platformNames[currentList[num]], pos, platformColors[currentList[num]], num);
 					change = .6f;
 				}
-				Destroy(upDown[0]);
-				Destroy(upDown[1]);
 			} else{
 				for(int x = 1; x < 4; x++){
 					num++;
@@ -87,11 +83,13 @@ public class PlatformInformation : MonoBehaviour{
 					change = .6f;
 				}
 				// ran function on 4 platforms, now put the rest in a list to choose from at the bottom
-				Vector3 linePos = lineSeperator.transform.position;
-				Instantiate(lineSeperator, new Vector3(linePos.x, pos.y - .6f, linePos.z), lineSeperator.transform.rotation);
-				num++;
-				currentClickNum = num;
-				ShowPlatform(platformNames[currentList[num]], new Vector3(pos.x, pos.y - 1, pos.z), platformColors[currentList[num]], num);
+				// num++;
+				// pos = new Vector3(pos.x, pos.y - 1, pos.z);
+				// change = 0;
+				// for(int n=4; n < lengthy; n++){
+				// 	ShowPlatform(platformNames[currentList[n]], pos, platformColors[currentList[n]], n);
+				// 	// add remaining elements to list
+				// }
 			}
 		}
 	}
@@ -102,26 +100,22 @@ public class PlatformInformation : MonoBehaviour{
 		} else if(Input.GetKeyDown(KeyCode.Q)){
 			// press back button
 			quitButton.onClick.Invoke();
-		} else if(Input.GetKeyDown(KeyCode.UpArrow)){
-			// press back button
-			upDown[0].onClick.Invoke();
-		} else if(Input.GetKeyDown(KeyCode.DownArrow)){
-			// press back button
-			upDown[1].onClick.Invoke();
 		}
 		int lengthy = platformList.Length;
-		lengthy = (lengthy > 4) ? 5 : lengthy;
 		// make sure lengthy is not greater than 5
+		lengthy = lengthy <= 4 ? lengthy : 4;
 		int clicked = 0;
 		int moused = 0;
 		DragHandler clickPlat = null;
 		for(int i=1; i < lengthy; i++){
 			DragHandler script = platformParents[i].GetComponent<DragHandler>();
-			if(script.clicked){
-				clicked = i;
-				clickPlat = script;
-			} else if(script.mouseHere){
-				moused = i;
+			if(script != null){
+				if(script.clicked){
+					clicked = i;
+					clickPlat = script;
+				} else if(script.mouseHere){
+					moused = i;
+				}
 			}
 		}
 		if(clicked > 0 && moused > 0){
@@ -173,9 +167,6 @@ public class PlatformInformation : MonoBehaviour{
 			// don't allow default platform to be moved!
 			Destroy(layer.GetComponent<DragHandler>());
 			Destroy(background.GetComponent<BackgroundFollow>());
-		} else if(num > 3){
-			upDown[0].transform.position = Camera.main.WorldToScreenPoint(new Vector3(pos.x + platformWidth + .3f, pos.y, pos.z));
-			upDown[1].transform.position = Camera.main.WorldToScreenPoint(new Vector3(pos.x - platformWidth - .3f, pos.y, pos.z));
 		}
 		LayerChildren layerScript = layer.GetComponent<LayerChildren>();
 		layerScript.background = background;
@@ -188,12 +179,6 @@ public class PlatformInformation : MonoBehaviour{
 			Debug.Log("errors with default platform?");
 			// first element is off limits to swap
 			return false;
-		} else if(num1 == currentClickNum){
-			startListIndex = num2;
-			currentClickNum = num2;
-		} else if(num2 == currentClickNum){
-			startListIndex = num1;
-			currentClickNum = num1;
 		}
 		// switch the current locations of platforms as well as their originally set locations
 		Vector3 temp = locations[num1];
@@ -212,10 +197,6 @@ public class PlatformInformation : MonoBehaviour{
 		numbersFollow[num2].parent = followTemp;
 		numbersFollow[num2] = scriptTemp;
 		// change where the numbers associated with platform are
-		GameObject tempText = platformParents[num1].GetComponent<LayerChildren>().numText;
-		platformParents[num1].GetComponent<LayerChildren>().numText = platformParents[num2].GetComponent<LayerChildren>().numText;
-		platformParents[num2].GetComponent<LayerChildren>().numText = tempText;
-		// swaps reference to number
 		return true;
 	}
 	string ArrayToString(int[] temp){
@@ -240,30 +221,6 @@ public class PlatformInformation : MonoBehaviour{
 	}
 	public void ClickQuit(){
 		Application.Quit();
-	}
-	public void ClickUp(){
-		// DO THIS
-		if(currentClickNum < 5){
-			// can't go up anymore
-			Debug.Log("beginning of list");
-			return;
-		}
-		UpDownClicked(currentClickNum, --currentClickNum);
-	}
-	public void ClickDown(){
-		// DO THIS
-		if(currentClickNum >= platformList.Length - 1){
-			// at the end of the list
-			Debug.Log("end of list");
-			return;
-		}
-		UpDownClicked(currentClickNum, ++currentClickNum);
-	}
-	void UpDownClicked(int curr, int next){
-		GameObject singleClicked = platformParents[startListIndex];
-		LayerChildren script = singleClicked.GetComponent<LayerChildren>();
-		script.background.GetComponent<Renderer>().material.color = platformColors[currentList[next]];
-		script.text.GetComponent<Text>().text = platformNames[currentList[next]];
 	}
 	static bool ArraysEqual<T>(T[] a1, T[] a2){
 		if (ReferenceEquals(a1, a2))
