@@ -1,3 +1,4 @@
+using System;
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,22 +11,23 @@ public class Abilities : MonoBehaviour {
 	public int[] howRare;
 	// how rare each list of abilities is by probability chosen /100
 	// private StartAbility[] methodCalls;
+	private delegate void abilityDelegate();
+	private abilityDelegate[] methodCalls;
+	// call functions to do certain things with
 	private List<List<string>> ourValues;
-	delegate void StartAbility();
 	void Awake(){
 		ourValues = new List<List<string>>();
-		int lengthy = howRare.Length;
-		for(int i=0; i < lengthy; i++)
-			ourValues.Add(new List<string>());
 		int aLengthy = abilities.Length;
-		// methodCalls = new StartAbility[aLengthy];
+		methodCalls = new abilityDelegate[] {LogThis, LogThis2};
 		// create method for each ability (needs to run some code to operate)
-		for(int n=0; n < aLengthy; n++)
+		for(int n=0; n < aLengthy; n++){
+			ourValues.Add(new List<string>());
 			ourValues[rareIndex[n]].Add(abilities[n]);
+		}
 	}
 	int TestRare(){
 		// returns index of random list based on their rarity
-		int index = Random.Range(0, 100);
+		int index = UnityEngine.Random.Range(0, 100);
 		int sum = 0;
         int i=0;
         while(sum < index) {
@@ -34,8 +36,15 @@ public class Abilities : MonoBehaviour {
         return Mathf.Max(0, i-1);
 	}
 	public void GetRandom(){
+		// get a random ability based on
 		List<string> abilitySection = ourValues[TestRare()];
-		string currentAbility = abilitySection[Random.Range(0, abilitySection.Count - 1)];
-		Debug.Log("ability: " + currentAbility);
+		string currentAbility = abilitySection[UnityEngine.Random.Range(0, abilitySection.Count - 1)];
+		// methodCalls[Array.IndexOf(abilities, currentAbility)]();
+	}
+	void LogThis(){
+		Debug.Log("here!");
+	}
+	void LogThis2(){
+		Debug.Log("here!");
 	}
 }

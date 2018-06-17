@@ -42,8 +42,10 @@ public class HealthBar : MonoBehaviour {
 			}
 		}
 		if(collider.tag == "Collectable"){
+			Debug.Log("here");
 			// if we are here, we hit a collectable
 			aScript.GetRandom();
+			Destroy(collider);
 			// find a random ability, and initialize it
 		}
 	}
