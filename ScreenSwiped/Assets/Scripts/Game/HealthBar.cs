@@ -42,11 +42,19 @@ public class HealthBar : MonoBehaviour {
 			}
 		}
 		if(collider.tag == "Collectable"){
-			Debug.Log("here");
 			// if we are here, we hit a collectable
 			aScript.GetRandom();
 			Destroy(collider);
 			// find a random ability, and initialize it
+		}
+	}
+	void OnCollisionEnter2D(Collision2D other){
+		GameObject collider = other.gameObject;
+		if(collider.tag == "Healthy"){
+			currentHealth += collider.GetComponent<Healthy>().raiseHealth;
+			// increase health by SaveMe raiseHealth value
+			currentHealth = (currentHealth >= 100) ? 100 : currentHealth;
+			SetHealth();
 		}
 	}
 	void SetHealth(){

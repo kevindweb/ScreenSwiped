@@ -12,13 +12,13 @@ public class Abilities : MonoBehaviour {
 	// how rare each list of abilities is by probability chosen /100
 	// private StartAbility[] methodCalls;
 	private delegate void abilityDelegate();
-	private abilityDelegate[] methodCalls;
+	// private abilityDelegate[] methodCalls;
 	// call functions to do certain things with
 	private List<List<string>> ourValues;
 	void Awake(){
 		ourValues = new List<List<string>>();
 		int aLengthy = abilities.Length;
-		methodCalls = new abilityDelegate[] {LogThis, LogThis2};
+		// methodCalls = new abilityDelegate[] {LogThis, LogThis2};
 		// create method for each ability (needs to run some code to operate)
 		for(int n=0; n < aLengthy; n++){
 			ourValues.Add(new List<string>());

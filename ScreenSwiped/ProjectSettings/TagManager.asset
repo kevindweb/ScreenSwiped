@@ -10,6 +10,7 @@ TagManager:
   - HeldPlatform
   - Platform
   - Collectable
+  - SaveMe
   layers:
   - Default
   - TransparentFX

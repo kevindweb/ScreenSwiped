@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 61587107947153436}
   - component: {fileID: 50166604173859972}
   - component: {fileID: 114528016669894410}
-  - component: {fileID: 114473286105955878}
+  - component: {fileID: 114917961476941668}
   m_Layer: 0
   m_Name: HealthyPlatform
   m_TagString: Platform
@@ -89,20 +89,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114473286105955878
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1947208758083158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5de7e8cfdec34ea483a21250af521c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radiusObject: {fileID: 1237114963958012, guid: e7bb0fd0207174eaea8ed69179684465,
-    type: 2}
-  invisibleTime: 0.3
 --- !u!114 &114528016669894410
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -115,6 +101,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationDefault: 0
+--- !u!114 &114917961476941668
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1947208758083158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e5aa403774c64519bc6f2b95238e6ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  raiseHealth: 15
 --- !u!212 &212087836227147026
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -51,8 +51,10 @@ public class CreatePlatform : MonoBehaviour {
 					currPlatformNum = key.Value;
 					hudScript.ChangeColor(currPlatformNum, true);
 					holding = true;
-					heldObj = Instantiate(heldVersions[currPlatformNum - 1], mouseLocation, Quaternion.identity);
-					heldObj.GetComponent<FollowMouse>().rotation = defaultRotation;
+					heldObj = Instantiate(heldVersions[currentList[currPlatformNum - 1]], mouseLocation, Quaternion.identity);
+					FollowMouse followScript = heldObj.GetComponent<FollowMouse>();
+					if(followScript != null)
+						followScript.rotation = defaultRotation;
 					colorSet = true;
 				} else{
 					hudScript.ChangeColor(currPlatformNum, false);
@@ -78,13 +80,21 @@ public class CreatePlatform : MonoBehaviour {
 		}
 	}
 	void SetPlatform(Vector3 mouseLocation){
-		FollowMouse script = heldObj.GetComponent<FollowMouse>();
-		float rotation = script.rotation;
-		defaultRotation = rotation;
-		Color col = script.currColor;
-		if(col == Color.red){
-			// do not place platform if we are inside player
-			return;
+		string heldTag = heldObj.tag;
+		float rotation;
+		if(heldObj.tag == "HeldSaveMe"){
+			SaveMeHeldPlatform script = heldObj.GetComponent<SaveMeHeldPlatform>();
+			rotation = script.rotation;
+			mouseLocation = heldObj.transform.position;
+		} else{
+			FollowMouse script = heldObj.GetComponent<FollowMouse>();
+			rotation = script.rotation;
+			defaultRotation = rotation;
+			Color col = script.currColor;
+			if(col == Color.red){
+				// do not place platform if we are inside player
+				return;
+			}
 		}
 		Destroy(heldObj);
 		heldObj = null;
