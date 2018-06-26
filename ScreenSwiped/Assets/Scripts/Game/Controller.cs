@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Controller : MonoBehaviour {
 	public float horizontalGravity = 4.9f;
 	public float magnetForce = 20;
 	public SpawnEnemy enemySpawnScript;
+	public Button menuButton;
+	public Button instructionsButton;
+	public Button pauseButton;
+	public GameObject pausePanel;
 	private Rigidbody2D rg2d;
 	private string difficulty;
 	private DataLoader access;
@@ -41,6 +46,7 @@ public class Controller : MonoBehaviour {
 			enemySpawnScript.spawnMax *= .8f;
 		}
 		// change enemy spawn rate with hard difficulty via enemySpawnScript
+		pausePanel.SetActive(false);
 	}
 
 	void Update(){
@@ -80,16 +86,12 @@ public class Controller : MonoBehaviour {
 			SceneManager.LoadScene(4);
 			// load game over scene
 		} else if(Input.GetKeyDown(KeyCode.P)){
-			if(paused){
-				// unpause
-				paused = false;
-				Time.timeScale = difficulties[difficulty];
-				// set time setting according to difficulty setting
-			} else{
-				paused = true;
-				Time.timeScale = 0;
-				// pause game!
-			}
+			pauseButton.onClick.Invoke();
+		} else if(paused){
+			if(Input.GetKeyDown(KeyCode.M))
+				menuButton.onClick.Invoke();
+			else if(Input.GetKeyDown(KeyCode.I))
+				instructionsButton.onClick.Invoke();
 		}
 	}
 
@@ -109,5 +111,28 @@ public class Controller : MonoBehaviour {
 			// stop being pulled by magnet
 			magnetField.Remove(1);
 		}
+	}
+
+	public void PauseClick(){
+		if(paused){
+			// unpause
+			paused = false;
+			pausePanel.SetActive(paused);
+			Time.timeScale = difficulties[difficulty];
+			// set time setting according to difficulty setting
+		} else{
+			paused = true;
+			pausePanel.SetActive(paused);
+			Time.timeScale = 0;
+			// pause game!
+		}
+	}
+
+	public void MenuClick(){
+		SceneManager.LoadScene(0);
+	}
+
+	public void InstructionsClick(){
+		SceneManager.LoadScene(3);
 	}
 }

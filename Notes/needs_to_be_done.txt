@@ -1,5 +1,7 @@
 What needs to be done?
 
+    - work with text to make it nicer
+        - TextMesh pro
     - create checkpoints to move advance in game
         - create more platform functionality DONE (for now)
             - normal (Default) DONE
@@ -11,6 +13,7 @@ What needs to be done?
             - creates extra long platform in whatever orientation player sets (Extraaa) DONE
                 - triples the width
         - new checkpoints change the player's color, have different enemies, collectables and platforms
+            - If player goes more than 100 farther than the previous high score, change to another random color
         - SYNERGIES???
         - add collectables!!!
             - phase through enemies

@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114219689733635358}
   m_Layer: 0
   m_Name: HeldPlatformSaveMe
-  m_TagString: HeldPlatform
+  m_TagString: HeldSaveMe
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,6 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e14cbb1d1d24415b846a612c67eaa42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotation: 30
 --- !u!212 &212173403842934750
 SpriteRenderer:
   m_ObjectHideFlags: 1
