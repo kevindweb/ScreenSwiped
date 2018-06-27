@@ -9,6 +9,7 @@ public class SpawnEnemy : MonoBehaviour {
 	public float spawnMin = 1f;
 	public float spawnMax = 1f;
 	public float spawnIncrease = .3f;
+	public GameObject player;
 	private int currentStep = 100;
 	private float originalPosition;
 	private float defaultSpeed;
@@ -19,6 +20,10 @@ public class SpawnEnemy : MonoBehaviour {
 		defaultSpeed = enemies[0].GetComponent<FollowPlayer>().moveSpeed;
 		moveSpeed = defaultSpeed;
 	}
+	void Start(){
+		Random.InitState(player.GetComponent<Controller>().seed);
+		Spawn();
+	}
 	void Update(){
 		if(transform.position.x > currentStep){
 			currentStep += 100;
@@ -26,9 +31,6 @@ public class SpawnEnemy : MonoBehaviour {
 			spawnMax = spawnMax * (1 - spawnIncrease);
 			// decrease time in between spawns (increasing spawn rate)
 		}
-	}
-	void Start(){
-		Spawn();
 	}
 	void Spawn(){
 		// spawn enemy between floor and ceiling

@@ -15,6 +15,7 @@ public class Abilities : MonoBehaviour {
 	// private abilityDelegate[] methodCalls;
 	// call functions to do certain things with
 	private List<List<string>> ourValues;
+	private int seed;
 	void Awake(){
 		ourValues = new List<List<string>>();
 		int aLengthy = abilities.Length;
@@ -24,6 +25,11 @@ public class Abilities : MonoBehaviour {
 			ourValues.Add(new List<string>());
 			ourValues[rareIndex[n]].Add(abilities[n]);
 		}
+	}
+	void Start(){
+		seed = GetComponent<Controller>().seed;
+		UnityEngine.Random.InitState(seed);
+		// get the randomized seed from player controller
 	}
 	int TestRare(){
 		// returns index of random list based on their rarity

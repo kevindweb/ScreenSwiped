@@ -1,7 +1,5 @@
 What needs to be done?
 
-    - work with text to make it nicer
-        - TextMesh pro
     - create checkpoints to move advance in game
         - create more platform functionality DONE (for now)
             - normal (Default) DONE
@@ -34,4 +32,3 @@ What needs to be done?
             - SOME CAN BE HARMFUL (increasing hitbox for period of time)
             - generic collectable object (mystery abilities)
             - some abilities will be full game use, others will be for certain time
-    - seeded runs??

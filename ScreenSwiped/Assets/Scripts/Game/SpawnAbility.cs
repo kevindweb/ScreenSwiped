@@ -6,9 +6,11 @@ public class SpawnAbility : MonoBehaviour {
 	public GameObject abilityObject;
 	public GameObject floor;
 	public GameObject ceiling;
+	public GameObject player;
 	public float spawnMin = 1f;
 	public float spawnMax = 2f;
 	void Start(){
+		Random.InitState(player.GetComponent<Controller>().seed);
 		Spawn();
 	}
 	void Spawn(){

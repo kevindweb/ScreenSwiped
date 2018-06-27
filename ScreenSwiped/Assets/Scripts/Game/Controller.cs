@@ -1,4 +1,5 @@
-﻿using System.Collections;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,11 +12,13 @@ public class Controller : MonoBehaviour {
 	public Button menuButton;
 	public Button instructionsButton;
 	public Button pauseButton;
+	public Text pauseSeed;
 	public GameObject pausePanel;
 	private Rigidbody2D rg2d;
 	private string difficulty;
 	private DataLoader access;
 	private string file = "difficulty.dat";
+	private string seedFile = "seed.dat";
 	private Dictionary<string, float> difficulties = new Dictionary<string, float>();
 	private Dictionary<int, Transform> magnetField;
 	private float startTime;
@@ -26,6 +29,9 @@ public class Controller : MonoBehaviour {
 	private bool increasedMovement = false;
 	private bool unsetVariables = true;
 	private bool paused = false;
+	[HideInInspector]
+	public int seed;
+	private string seedText;
 	void Awake(){
 		startTime = Time.time;
 		magnetField = new Dictionary<int, Transform>();
@@ -38,6 +44,23 @@ public class Controller : MonoBehaviour {
 		if(difficulty == null){
 			difficulty = "normal";
 		}
+		seedText = access.Load("", seedFile);
+		bool addSeed = false;
+		if(seedText == null)
+			// create "random" seed
+			addSeed = true;
+		string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		char[] stringChars = new char[8];
+		for(int i = 0; i < stringChars.Length; i++){
+			if(addSeed){
+				char thisChar = chars[UnityEngine.Random.Range(0, chars.Length)];
+				seed += (int) thisChar;
+				seedText += thisChar + " ";
+			} else{
+				seed += (int) seedText[i];
+			}
+		}
+		pauseSeed.GetComponent<Text>().text = "Seed: " + seedText;
 		Time.timeScale = difficulties[difficulty];
 		// set time setting according to difficulty setting
 		if(difficulty == "hard"){
@@ -47,6 +70,10 @@ public class Controller : MonoBehaviour {
 		}
 		// change enemy spawn rate with hard difficulty via enemySpawnScript
 		pausePanel.SetActive(false);
+	}
+
+	void Start(){
+		UnityEngine.Random.InitState(seed);
 	}
 
 	void Update(){
@@ -102,6 +129,10 @@ public class Controller : MonoBehaviour {
 			float step = magnetForce * Time.deltaTime;
 			transform.position = Vector2.MoveTowards(transform.position, magnetField[1].position, step);
 		}
+	}
+
+	void OnDisable(){
+		access.DestroyFile(seedFile);
 	}
 
 	public void Magnet(Transform magnet, bool pull){

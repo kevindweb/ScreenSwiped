@@ -63,4 +63,9 @@ public class DataLoader : ScriptableObject {
 			return default(T);
 		}
 	}
+	public void DestroyFile(string file){
+		if(File.Exists(dataPath + file)){
+		    File.Delete(dataPath + file);
+		}
+	}
 }
