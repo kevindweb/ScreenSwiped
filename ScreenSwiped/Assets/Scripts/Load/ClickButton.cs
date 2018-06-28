@@ -10,7 +10,6 @@ public class ClickButton : MonoBehaviour {
 	public Button quitButton;
 	public Button playButton;
 	public int currentIndex = 1;
-	public Text seedInput;
 	private int buttonRow = 0;
 	void Start(){
 		playButton.GetComponent<Image>().color = Color.red;
@@ -61,16 +60,6 @@ public class ClickButton : MonoBehaviour {
 			// change previous button color to white again
 			buttons[currentIndex].GetComponent<Image>().color = Color.red;
 			// focus on new button
-		}
-	}
-	void OnDisable(){
-		string seedText = seedInput.GetComponent<Text>().text;
-		if(seedText.Length >= 8){
-			seedText = (seedText.Substring(0, 8)).ToUpper();
-			Debug.Log("using seed: " + seedText);
-			DataLoader access = ScriptableObject.CreateInstance("DataLoader") as DataLoader;
-			access.Save(seedText, "seed.dat");
-			// save to file if it meets certain criteria
 		}
 	}
 	public void ClickGame(){

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SaveMeHeldPlatform : MonoBehaviour {
-	public float rotation = 30.0f;
+	public float rotation = 60.0f;
 	private float moveSpeed = 14.0f;
 	private float width;
 	private GameObject player;

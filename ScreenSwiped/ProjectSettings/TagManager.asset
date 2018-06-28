@@ -12,6 +12,7 @@ TagManager:
   - Collectable
   - SaveMe
   - HeldSaveMe
+  - Healthy
   layers:
   - Default
   - TransparentFX

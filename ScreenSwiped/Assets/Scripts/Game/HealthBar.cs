@@ -10,10 +10,12 @@ public class HealthBar : MonoBehaviour {
 	public int[] enemyDamages;
 	public Slider healthBar;
 	public float transitionTime = .3f;
+	public GameObject ourCollider;
 	private Dictionary<string, int> damages;
 	// enemy tag = key, enemy damage = value
 	private int currentHealth;
 	private Abilities aScript;
+	private GameObject lastCollider;
 	// our abilities script
 	void Awake(){
 		damages = new Dictionary<string, int>();
@@ -29,6 +31,9 @@ public class HealthBar : MonoBehaviour {
 	}
 	void OnTriggerEnter2D(Collider2D other){
 		GameObject collider = other.gameObject;
+		if(ourCollider == collider || lastCollider == collider)
+			return;
+		lastCollider = collider;
 		foreach(KeyValuePair<string, int> key in damages){
 			if(collider.tag == key.Key){
 				// we lost because we hit an enemy

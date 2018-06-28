@@ -263,6 +263,7 @@ MonoBehaviour:
   enemyDamages: 14000000
   healthBar: {fileID: 448892129}
   transitionTime: 0.3
+  ourCollider: {fileID: 404915819}
 --- !u!114 &52744545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1136,7 +1137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &952916168
 Transform:
   m_ObjectHideFlags: 0

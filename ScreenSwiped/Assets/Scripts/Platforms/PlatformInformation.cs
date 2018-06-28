@@ -184,7 +184,6 @@ public class PlatformInformation : MonoBehaviour{
 	string ArrayToString(int[] temp){
 		string item = "";
 		for(int i=0; i < temp.Length; i++){
-			Debug.Log("temp i: " + temp[i]);
 			item += temp[i];
 		}
 		return item;
