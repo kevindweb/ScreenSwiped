@@ -260,7 +260,8 @@ MonoBehaviour:
   startHealth: 100
   enemyTags:
   - Enemy
-  enemyDamages: 14000000
+  - ClusterEnemy
+  enemyDamages: 1400000005000000
   healthBar: {fileID: 448892129}
   transitionTime: 0.3
   ourCollider: {fileID: 404915819}
@@ -1326,6 +1327,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemies:
   - {fileID: 1988944851854054, guid: 3c16fc102a8134c3dacb8a14635ef602, type: 2}
+  - {fileID: 1043612844968318, guid: 7eb0354f5fce54a90b280fbd594a90a3, type: 2}
   floor: {fileID: 481333955}
   ceiling: {fileID: 1470855326}
   spawnMin: 1
@@ -2331,6 +2333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a17d2b9e25d4946baa70ee878d647ec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 52744537}
   platforms:
   - {fileID: 1790392302293730, guid: 7f3a578e7e8c84bde98793d436c156cc, type: 2}
   - {fileID: 1486627172755774, guid: 976d360120d474cc192134bf73662a77, type: 2}

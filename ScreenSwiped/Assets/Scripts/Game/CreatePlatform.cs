@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CreatePlatform : MonoBehaviour {
+	public GameObject player;
 	public GameObject[] platforms;
 	// static platform after being placed at certain position
 	public float[] cooldowns;
@@ -42,25 +43,31 @@ public class CreatePlatform : MonoBehaviour {
 		bool buttonClicked = false;
 		foreach(KeyValuePair<KeyCode, int> key in keys){
     		if(Input.GetKeyDown(key.Key) && cooled[key.Value]){
-				if(!colorSet){
-					buttonClicked = true;
-					// initialize platform at mouse location
-					if(heldObj){
-						Destroy(heldObj);
-					}
-					currPlatformNum = key.Value;
-					hudScript.ChangeColor(currPlatformNum, true);
-					holding = true;
-					heldObj = Instantiate(heldVersions[currentList[currPlatformNum - 1]], mouseLocation, Quaternion.identity);
-					FollowMouse followScript = heldObj.GetComponent<FollowMouse>();
-					if(followScript != null)
-						followScript.rotation = defaultRotation;
-					colorSet = true;
-				} else{
+				if(colorSet){
 					hudScript.ChangeColor(currPlatformNum, false);
 					currPlatformNum = key.Value;
-					hudScript.ChangeColor(currPlatformNum, true);
+					mouseLocation = heldObj.transform.position;
 				}
+				buttonClicked = true;
+				// initialize platform at mouse location
+				if(heldObj){
+					Destroy(heldObj);
+				}
+				currPlatformNum = key.Value;
+				hudScript.ChangeColor(currPlatformNum, true);
+				holding = true;
+				GameObject ourPlatFormSetter = heldVersions[currentList[currPlatformNum - 1]];
+				if(ourPlatFormSetter.tag == "HeldSaveMe"){
+					float width = ourPlatFormSetter.transform.localScale.x / 2;
+					Vector3 setPos = new Vector3(player.transform.position.x + width, player.transform.position.y - width, 10);
+					heldObj = Instantiate(heldVersions[currentList[currPlatformNum - 1]], setPos, Quaternion.identity);
+				} else{
+					heldObj = Instantiate(heldVersions[currentList[currPlatformNum - 1]], mouseLocation, Quaternion.identity);
+				}
+				FollowMouse followScript = heldObj.GetComponent<FollowMouse>();
+				if(followScript != null)
+					followScript.rotation = defaultRotation;
+				colorSet = true;
 				break;
 			}
 		}

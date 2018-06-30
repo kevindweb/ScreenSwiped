@@ -13,6 +13,8 @@ TagManager:
   - SaveMe
   - HeldSaveMe
   - Healthy
+  - ClusterEnemy
+  - ClusterHolder
   layers:
   - Default
   - TransparentFX

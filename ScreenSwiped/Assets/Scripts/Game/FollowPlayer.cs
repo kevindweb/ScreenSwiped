@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour {
 	public float moveSpeed = 3.0f;
-	public int enemyDamage = 10;
 	private Transform player;
 	private Transform myTransform;
 	void Awake () {

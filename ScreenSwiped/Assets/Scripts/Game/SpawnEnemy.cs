@@ -40,13 +40,17 @@ public class SpawnEnemy : MonoBehaviour {
 		// these are the y-axis bounds that we can set our enemy
 		Vector3 pos = transform.position;
 		GameObject enemy = enemies[Random.Range(0, enemies.GetLength(0))];
-		float enemyHeight = (enemy.transform.localScale.y / 2.0f) * 1.414f;
-		// enemyHeight is distance from center to one corner of cube (we are a diamond)
-		float y = transform.position.y + Random.Range(topOfFloor + enemyHeight, bottomOfCeiling - enemyHeight);
+		float enemyHeight = (enemy.transform.localScale.y / 2.0f);
+		if(enemy.tag == "Enemy")
+			enemyHeight *= 1.414f;
+			// enemyHeight is distance from center to one corner of cube (we are a diamond)
+		float y;
+		y = transform.position.y + Random.Range(topOfFloor + enemyHeight, bottomOfCeiling - enemyHeight);
 		GameObject curr = Instantiate(enemy, new Vector3(transform.position.x, y, transform.position.z), Quaternion.identity);
 		if(moveSpeed != defaultSpeed)
 			curr.GetComponent<FollowPlayer>().moveSpeed = moveSpeed;
-		curr.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 45.0f);
+		if(enemy.tag == "Enemy")
+			curr.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 45.0f);
 		Invoke("Spawn", Random.Range(spawnMin, spawnMax));
 	}
 	public void MoveFaster(){
