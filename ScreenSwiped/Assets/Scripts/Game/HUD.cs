@@ -33,14 +33,18 @@ public class HUD : MonoBehaviour {
 		access = ScriptableObject.CreateInstance("DataLoader") as DataLoader;
 		difficulty = access.Load("", difficultyFile);
 		highScore = access.Load(0, scoreFile);
-		currentList = StringToArray(access.Load("", platformFile));
+		string tempVar = access.Load("", platformFile);
+		tempVar = (tempVar == "") ? "01234" : tempVar;
+		currentList = StringToArray(tempVar);
 		if(difficulty == null){
 			// set to default normal difficulty
 			difficulty = "normal";
 			access.Save(difficulty, difficultyFile);
 		}
-		if(currentList == null)
-			access.Save(platformFile, "0");
+		if(currentList == null){
+			currentList = new int[]{0, 1, 2, 3, 4};
+			access.Save(platformFile, "01234");
+		}
 	}
 	void Start(){
 		newHighScore = highScore;
@@ -116,8 +120,8 @@ public class HUD : MonoBehaviour {
 		// place text inside the item on left side of screen
 	}
 	int[] StringToArray(string temp){
-		if(temp == "")
-			return null;
+		if(temp == "" || temp == null)
+			return new int[]{0, 1, 2, 3, 4};
 		char[] numbers = temp.ToCharArray();
 		int nLengthy = numbers.Length;
 		int[] arr = new int[nLengthy];

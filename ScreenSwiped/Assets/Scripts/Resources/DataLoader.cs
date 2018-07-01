@@ -38,7 +38,7 @@ public class DataLoader : ScriptableObject {
 	}
 	public void Save<T>(T data, string file){
 		//  serialize and save any object
-		if(file.Substring(file.Length - 4, 4) != extension){
+		if(file.Length > 4 && file.Substring(file.Length - 4, 4) != extension){
 			// add file extension if not there
 			file += extension;
 		}
@@ -59,6 +59,7 @@ public class DataLoader : ScriptableObject {
 			return newData;
 		} else{
 			Debug.Log("could not find file: " + file);
+			Save(data, file);
 			// Debug.Break();
 			return default(T);
 		}

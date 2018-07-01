@@ -24,7 +24,7 @@ public class DestroyEnemy : MonoBehaviour {
 		foreach(Collider2D collider in objectsInside){
 			GameObject obj = collider.gameObject;
 			// Debug.Log("object: " + obj);
-			if(obj.tag == "Enemy"){
+			if(obj.tag == "Enemy" || obj.tag == "ClusterHolder"){
 				Destroy(obj);
 			}
 		}

@@ -41,7 +41,7 @@ public class Controller : MonoBehaviour {
 		rg2d = GetComponent<Rigidbody2D>();
 		access = ScriptableObject.CreateInstance("DataLoader") as DataLoader;
 		difficulty = access.Load("", file);
-		if(difficulty == null){
+		if(difficulty == null || difficulty == ""){
 			difficulty = "normal";
 		}
 		// seedText = access.Load("", seedFile);
