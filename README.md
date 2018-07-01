@@ -1,4 +1,4 @@
-# ScreenSwiped
+# MakeItBounce
 
 Slide across the screen, creating angled platforms to avoid falling to your death! Bounce past enemies and pick up abilities along the way. How far will you get?...
 
