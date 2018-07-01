@@ -18,7 +18,7 @@ public class Controller : MonoBehaviour {
 	private string difficulty;
 	private DataLoader access;
 	private string file = "difficulty.dat";
-	private string seedFile = "seed.dat";
+	// private string seedFile = "seed.dat";
 	private Dictionary<string, float> difficulties = new Dictionary<string, float>();
 	private Dictionary<int, Transform> magnetField;
 	private float startTime;
@@ -44,7 +44,7 @@ public class Controller : MonoBehaviour {
 		if(difficulty == null){
 			difficulty = "normal";
 		}
-		seedText = access.Load("", seedFile);
+		// seedText = access.Load("", seedFile);
 		bool addSeed = false;
 		if(seedText == null)
 			// create "random" seed
@@ -60,7 +60,7 @@ public class Controller : MonoBehaviour {
 				seed += (int) seedText[i];
 			}
 		}
-		pauseSeed.GetComponent<Text>().text = "Seed: " + seedText;
+		// pauseSeed.GetComponent<Text>().text = "Seed: " + seedText;
 		Time.timeScale = difficulties[difficulty];
 		// set time setting according to difficulty setting
 		if(difficulty == "hard"){
@@ -131,9 +131,9 @@ public class Controller : MonoBehaviour {
 		}
 	}
 
-	void OnDisable(){
-		access.DestroyFile(seedFile);
-	}
+	// void OnDisable(){
+	// 	access.DestroyFile(seedFile);
+	// }
 
 	public void Magnet(Transform magnet, bool pull){
 		if(pull){

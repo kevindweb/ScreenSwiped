@@ -8,3 +8,9 @@ Infinite sideways platform runner
 - Single horizontal platform pre-drawn to begin game
 - Player has very low friction (allows for sliding down ramps)
 - Player is slightly bouncy
+
+
+Debug Notes
+    - didn't see the health bar
+    - trying to break game
+    - didn't understand cool down of platforms

@@ -349,7 +349,6 @@ MonoBehaviour:
   quitButton: {fileID: 611123717}
   playButton: {fileID: 1418630920}
   currentIndex: 1
-  seedInput: {fileID: 773245140}
 --- !u!1 &595864944
 GameObject:
   m_ObjectHideFlags: 0
@@ -1618,7 +1617,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2081559159
 RectTransform:
   m_ObjectHideFlags: 0
