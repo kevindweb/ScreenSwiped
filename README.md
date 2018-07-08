@@ -4,7 +4,7 @@ Slide across the screen, creating angled platforms to avoid falling to your deat
 
 ## Getting Started
 
-This is the development version of the project, but a built solution is soon to come!
+The game is in testing so check it out [here](https://kevingames.itch.io/makeitbounce/)!
 
 ### Prerequisites
 
